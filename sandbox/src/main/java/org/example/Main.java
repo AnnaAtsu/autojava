@@ -2,6 +2,9 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("I am new to JAVA!");
+        Triangle triangle = new Triangle();
+        triangle.calculatePerimeter();
+        triangle.calculateArea();
+        triangle.perimetrAndarea();
     }
-    }
+}

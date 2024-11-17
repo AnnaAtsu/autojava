@@ -1,28 +1,27 @@
 package org.example;
 
-
 public class Triangle {
-    public static void main(String[] args) {
-      PerimetrTriangle(3,5,10);
-      SquareTriangle(5,5,5);
+    private double sideA = 5;
+    private double sideB = 5;
+    private double sideC = 5;
 
+
+    public Triangle() {
     }
 
-    public static void PerimetrTriangle (int sideA, int sideB, int sideC) {
-        System.out.println("Triangle perimert is " + getAnInt(sideA, sideB, sideC));
-    }
-
-    public static int getAnInt(int sideA, int sideB, int sideC) {
+    public double calculatePerimeter() {
         return sideA + sideB + sideC;
     }
-    public static void SquareTriangle (int a, int b, int c) {
-        System.out.println("Triangle square is " + getTriangleArea(a, b, c));
+
+
+    public double calculateArea() {
+        double s = (sideA + sideB + sideC) / 2.0;
+        return Math.sqrt(s * (s - sideA) * (s - sideB) * (s - sideC));
     }
 
-    public static double getTriangleArea(int a, int b, int c) {
-        double p = (a + b + c) / 2.0;
-        return Math.sqrt(p * (p - a) * (p - b) * (p - c));
+
+    public void perimetrAndarea() {
+        System.out.println("Perimetr is: " + calculatePerimeter());
+        System.out.println("Area is: " + calculateArea());
     }
-
-
 }
