@@ -9,15 +9,15 @@ public class TriangleTests {
 
     @Test
     void Calculateperiment() {
-        Triangle triangle = new Triangle();
-       double result = triangle.calculatePerimeter();
+        Triangle triangle = new Triangle(5,5,5);
+       double result = triangle.getPerimetr();
       assertEquals(15, result);
     }
 
     @Test
    void Calculatesquare() {
-        Triangle triangle = new Triangle();
-        var area = triangle.calculateArea();
+        Triangle triangle = new Triangle(5, 5,5);
+        var area = triangle.getArea();
     Assertions.assertEquals(10.825317547305483, area);
     }
 }

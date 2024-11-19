@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.TriangleTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-11-15T13:24:14" hostname="DESKTOP-KB78DC2" time="0.014">
+<testsuite name="org.example.TriangleTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-11-19T17:35:42" hostname="DESKTOP-KB78DC2" time="0.015">
   <properties/>
-  <testcase name="Calculatesquare()" classname="org.example.TriangleTests" time="0.012"/>
+  <testcase name="Calculatesquare()" classname="org.example.TriangleTests" time="0.013"/>
   <testcase name="Calculateperiment()" classname="org.example.TriangleTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

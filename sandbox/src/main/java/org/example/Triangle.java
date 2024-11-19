@@ -1,27 +1,18 @@
 package org.example;
 
 public class Triangle {
-    private double sideA = 5;
-    private double sideB = 5;
-    private double sideC = 5;
-
-
-    public Triangle() {
+    public double a, b, c;
+    public Triangle(double a, double b, double c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
     }
 
-    public double calculatePerimeter() {
-        return sideA + sideB + sideC;
+    public double getPerimetr() {
+        return a + b + c;
     }
-
-
-    public double calculateArea() {
-        double s = (sideA + sideB + sideC) / 2.0;
-        return Math.sqrt(s * (s - sideA) * (s - sideB) * (s - sideC));
-    }
-
-
-    public void perimetrAndarea() {
-        System.out.println("Perimetr is: " + calculatePerimeter());
-        System.out.println("Area is: " + calculateArea());
+    public double getArea() {
+        double p = getPerimetr()/2.0;
+        return Math.sqrt(p * (p - a) * (p - b) * (p - c));
     }
 }
