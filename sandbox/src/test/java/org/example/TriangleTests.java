@@ -40,4 +40,17 @@ public class TriangleTests {
             System.out.println("The sum is less than the third triangle side!");
         }
     }
+
+    @Test
+    void TriangleEquality() {
+        var s1 = new Triangle(5, 5, 5);
+        var s2 = new Triangle(5, 5, 5);
+        Assertions.assertTrue(s1.equals(s2));
+    }
+    @Test
+    void TriangleNotEquality() {
+        var s1 = new Triangle(5, 4, 5);
+        var s2 = new Triangle(4, 5, 5);
+        Assertions.assertEquals(s1, s2);
+    }
 }
