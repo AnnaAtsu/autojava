@@ -26,14 +26,22 @@ public class Triangle {
     }
 
 
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Triangle triangle = (Triangle) o;
-        return (Double.compare(a, this.a) == 0 && Double.compare(b, this.b) == 0 && Double.compare(c, this.c) == 0)
-                || (Double.compare(a, this.b) == 0 && Double.compare(b, this.c) == 0 && Double.compare(c, this.a) == 0)
-                || (Double.compare(a, this.c) == 0 && Double.compare(b, this.a) == 0 && Double.compare(c, this.b) == 0);
+        if (this == o) {
+            return true;
+        } else if (o != null && this.getClass() == o.getClass()) {
+            Triangle triangle = (Triangle)o;
+            return Double.compare(triangle.a, this.a) == 0 && Double.compare(triangle.b, this.b) == 0 && Double.compare(triangle.c, this.c) == 0
+            || Double.compare(triangle.a, this.b) == 0 && Double.compare(triangle.b, this.c) == 0 && Double.compare(triangle.c, this.a) == 0
+            || Double.compare(triangle.a, this.c) == 0 && Double.compare(triangle.b, this.a) == 0 && Double.compare(triangle.c, this.b) == 0
+            || Double.compare(triangle.a, this.a) == 0 && Double.compare(triangle.b, this.c) == 0 && Double.compare(triangle.c, this.b) == 0
+            || Double.compare(triangle.a, this.c) == 0 && Double.compare(triangle.b, this.b) == 0 && Double.compare(triangle.c, this.a) == 0
+                    || Double.compare(triangle.a, this.b) == 0 && Double.compare(triangle.b, this.a) == 0 && Double.compare(triangle.c, this.c) == 0;
+        } else {
+            return false;
+        }
     }
 
     @Override
