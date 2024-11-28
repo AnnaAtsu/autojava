@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="DeleteGroupTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-11-28T09:02:35" hostname="DESKTOP-KB78DC2" time="1.813">
+  <properties/>
+  <testcase name="deleteGroup()" classname="DeleteGroupTest" time="1.813"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
