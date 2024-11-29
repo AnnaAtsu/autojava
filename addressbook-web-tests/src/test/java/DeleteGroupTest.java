@@ -28,8 +28,19 @@ public class DeleteGroupTest {
     @Test
     public void deleteGroup() {
         driver.findElement(By.linkText("groups")).click();
-        if(!isSelectPresent(By.name("selected[]"))) {
+        if(!isSelectPresent(By.name("new"))) {
             driver.findElement(By.linkText("groups")).click();
+        }
+        if(!isSelectPresent(By.name("selected[]"))) {
+            driver.findElement(By.name("new")).click();
+            driver.findElement(By.name("group_name")).click();
+            driver.findElement(By.name("group_name")).sendKeys("anna1");
+            driver.findElement(By.name("group_header")).click();
+            driver.findElement(By.name("group_header")).sendKeys("max");
+            driver.findElement(By.name("group_footer")).click();
+            driver.findElement(By.name("group_footer")).sendKeys("moore");
+            driver.findElement(By.name("submit")).click();
+            driver.findElement(By.linkText("group page")).click();
         }
         driver.findElement(By.name("selected[]")).click();
         driver.findElement(By.cssSelector(".group:nth-child(8) > input")).click();
@@ -39,7 +50,6 @@ public class DeleteGroupTest {
     }
 
 
-       //*[@id="content"]//input
     private boolean isSelectPresent(By locator) {
         try {
             driver.findElement(locator);
