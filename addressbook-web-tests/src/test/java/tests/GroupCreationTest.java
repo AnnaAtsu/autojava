@@ -10,17 +10,16 @@ public class GroupCreationTest extends TestBase {
 
     @Test
     public void CreateGroup() {
-        ApplicationManager.driver.findElement(By.linkText("groups")).click();
-        TestBase.app.canCreateGroup(new GroupData("name", "header", "footer"));
+        app.groupshelper().canCreateGroup(new GroupData("name", "header", "footer"));
 
     }
 
     @Test
     public void CreateGroupOnlyName() {
-        ApplicationManager.driver.findElement(By.linkText("groups")).click();
-        var emptyGroup = new GroupData();
-        var groupWithName = emptyGroup.withName("DARIA");
-        TestBase.app.canCreateGroup(groupWithName);
+        //ApplicationManager.driver.findElement(By.linkText("groups")).click();
+        //var emptyGroup = new GroupData();
+        //var groupWithName = emptyGroup.withName("DARIA");
+        app.groupshelper().canCreateGroup(new GroupData().withName("SASHA"));
 
     }
 }

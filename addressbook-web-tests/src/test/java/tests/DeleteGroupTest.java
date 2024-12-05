@@ -9,10 +9,10 @@ public class DeleteGroupTest extends TestBase {
 
     @Test
     public void deleteGroup() {
-        ApplicationManager.driver.findElement(By.linkText("groups")).click();
-        TestBase.app.openGroupPage();
-        TestBase.app.isGroupPresent();
-        TestBase.app.deleteGroupPage();
+        //ApplicationManager.driver.findElement(By.linkText("groups")).click();
+        app.groupshelper().openGroupPage();
+        app.groupshelper().isGroupPresent(app);
+        app.groupshelper().deleteGroupPage();
         ApplicationManager.driver.findElement(By.linkText("Logout")).click();
     }
 
