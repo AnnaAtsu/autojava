@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tests.ContractCreate" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-07T14:47:54" hostname="DESKTOP-KB78DC2" time="3.351">
+<testsuite name="tests.ContractCreate" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-07T15:51:57" hostname="DESKTOP-KB78DC2" time="6.544">
   <properties/>
-  <testcase name="ContractCreate()" classname="tests.ContractCreate" time="3.351"/>
+  <testcase name="ContractCreateWithLastNameOnly()" classname="tests.ContractCreate" time="6.544"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
