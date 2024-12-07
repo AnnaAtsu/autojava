@@ -7,11 +7,11 @@ public class ContractDelete extends TestBase{
 
     @Test
     public void DeleteContract() {
-     if(!isContactPresent(By.name("selected[]"))) {
-         openContactPage();
-         createContactshort(new DataContact().withFirstName("Maxim"));
+     if(!app.isContactPresent(By.name("selected[]"))) {
+         app.allcontacts().openContactPage();
+         app.allcontacts().createContactshort(new DataContact().withFirstName("Maxim"));
      }
-        removeContact();
+        app.allcontacts().removeContact();
     }
 
 }

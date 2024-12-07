@@ -1,8 +1,10 @@
 package manager;
 
+import model.DataContact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -11,7 +13,9 @@ import java.util.NoSuchElementException;
 public class ApplicationManager {
     public static WebDriver driver;
     private  LoginHelper session;
-    private GroupHelper groupshelper;
+    public GroupHelper groupshelper;
+    public ContactHelper allcontacts;
+
 
     public void init(String browser) {
         if (driver == null) {
@@ -46,6 +50,11 @@ public class ApplicationManager {
         return groupshelper;
     }
 
+    public ContactHelper allcontacts() {
+        if(allcontacts == null) {
+            allcontacts = new ContactHelper(this);
+        } return allcontacts;
+    }
 
     protected boolean isSelectPresent(By locator) {
         try {
@@ -55,6 +64,16 @@ public class ApplicationManager {
         catch (NoSuchElementException exception) {
         return false;
         }
+    }
+
+    public boolean isContactPresent(By locator) {
+       try {
+           driver.findElement(locator);
+           return true;
+       }
+        catch (NoSuchElementException exception) {
+           return false;
+       }
     }
 
 }

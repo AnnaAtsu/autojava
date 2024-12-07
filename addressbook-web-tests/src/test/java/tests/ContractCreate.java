@@ -7,22 +7,22 @@ public class ContractCreate extends TestBase{
 
     @Test
         public void ContractCreate() {
-        openContactPage();
-        createContactfull();
+        app.allcontacts().openContactPage();
+        app.allcontacts().createContactfull();
     }
 
     @Test
     public void ContractCreateWithName() {
-        openContactPage();
-        createContactshort(new DataContact().withFirstName("Maxim"));
+        app.allcontacts().openContactPage();
+        app.allcontacts().createContactshort(new DataContact().withFirstName("Maxim"));
     }
 
     @Test
     public void ContractCreateWithLastNameOnly() {
-        openContactPage();
+        app.allcontacts().openContactPage();
         var emptyContact = new DataContact();
         var emptyContactWithLastName = emptyContact.withLastname("Ivengo");
-        createContactshort(emptyContactWithLastName);
+        app.allcontacts().createContactshort(emptyContactWithLastName);
     }
 
 

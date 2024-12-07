@@ -51,4 +51,6 @@ public class GroupHelper {
         manager.driver.findElement(By.name("delete")).click();
         manager.driver.findElement(By.linkText("group page")).click();
     }
+
+
 }
