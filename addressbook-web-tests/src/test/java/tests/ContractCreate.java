@@ -9,6 +9,9 @@ import org.openqa.selenium.WebElement;
 
 public class ContractCreate {
     public static WebDriver driver;
+
+
+
 @BeforeEach
 public void set() {
     if (driver == null) {
@@ -85,12 +88,6 @@ public void set() {
 
     @Test
     public void ContractCreateWithName() {
-        WebDriver driver = new EdgeDriver();
-        driver.get("http://localhost/addressbook/index.php");
-        driver.findElement(By.name("user")).sendKeys("admin");
-        driver.findElement(By.name("pass")).sendKeys("secret");
-        driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
-        driver.manage().window().setSize(new Dimension(1904, 1119));
         driver.findElement(By.xpath("//a[contains(@href, 'edit.php')]")).click();
         driver.findElement(By.name("firstname")).click();
         driver.findElement(By.name("firstname")).sendKeys("Alesya");
