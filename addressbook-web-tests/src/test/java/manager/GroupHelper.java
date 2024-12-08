@@ -53,4 +53,8 @@ public class GroupHelper {
     }
 
 
+    public int getCount() {
+        openGroupPage();
+         return  manager.driver.findElements(By.name("selected[]")).size();
+    }
 }

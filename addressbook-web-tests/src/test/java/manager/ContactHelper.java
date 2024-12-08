@@ -92,4 +92,9 @@ public class ContactHelper {
         charge.driver.findElement(By.cssSelector("input:nth-child(75)")).click();
         charge.driver.findElement(By.linkText("home page")).click();
     }
+
+    public int getCount() {
+        openContactPage();
+        return  charge.driver.findElements(By.name("selected[]")).size();
+    }
 }

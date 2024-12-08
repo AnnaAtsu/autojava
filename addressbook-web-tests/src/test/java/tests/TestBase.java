@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 public class TestBase {
     protected static ApplicationManager app;
@@ -38,5 +39,12 @@ public class TestBase {
        // }
    // }
 
-
+public static String randomString(int n) {
+        var rnd = new Random();
+        var result = "";
+        for (int i = 0; i < n; i++) {
+        result = result + (char)('a' + rnd.nextInt(10));
+    }
+    return result;
+}
 }
