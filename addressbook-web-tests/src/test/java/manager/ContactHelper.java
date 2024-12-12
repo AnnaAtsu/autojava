@@ -29,9 +29,9 @@ public class ContactHelper {
     }
 
     public void removeContact() {
-        charge.driver.findElement(By.id("1")).click();
-        charge.driver.findElement(By.xpath("xpath=//input[@value='Delete']")).click();
-        charge.driver.switchTo().alert().accept();
+        charge.driver.findElement(By.name("selected[]")).click();
+        charge.driver.findElement(By.xpath("//input[@value='Delete']")).click();
+       charge.driver.switchTo().alert().accept();
     }
 
     public void createContactfull() {

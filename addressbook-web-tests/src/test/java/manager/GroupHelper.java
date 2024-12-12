@@ -48,14 +48,25 @@ public class GroupHelper {
         manager.driver.findElement(By.linkText("groups")).click();
     }
 
-    public void deleteGroupPage(GroupData groupData) {
+ //  public void deleteGroupPage(GroupData groupData) {
+     //   openGroupPage();
+     //   selectGroup(groupData);
+      //  manager.driver.findElement(By.name("selected[]")).click();
+      //  manager.driver.findElement(By.cssSelector(".group:nth-child(8) > input")).click();
+      //  manager.driver.findElement(By.name("delete")).click();
+      //  returnToGroupsPage();
+  //  }
+
+    public void deleteGroupPage() {
         openGroupPage();
-        selectGroup(groupData);
+      //  selectGroup(groupData);
         manager.driver.findElement(By.name("selected[]")).click();
         manager.driver.findElement(By.cssSelector(".group:nth-child(8) > input")).click();
         manager.driver.findElement(By.name("delete")).click();
         returnToGroupsPage();
     }
+
+
 
 
     public int getCount() {
@@ -65,9 +76,9 @@ public class GroupHelper {
 
 
 
-    public void modifyGroup(GroupData modifiedGroup) {
+    public void modifyGroup(GroupData groupData, GroupData modifiedGroup) {
         openGroupPage();
-        selectGroup(null);
+        selectGroup(groupData);
         initGroupModification();
         fillGroupForm(modifiedGroup);
         submitGroupModification();

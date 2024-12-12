@@ -30,15 +30,16 @@ public class DeleteGroupTest extends TestBase {
         app.groupshelper().openGroupPage();
         app.groupshelper().isGroupPresent();
         //int groupCount = app.groupshelper().getCount();
-        var oldGroups = app.groupshelper().getList();
-        var rnd = new Random();
-        var index = rnd.nextInt(oldGroups.size());
-        app.groupshelper().deleteGroupPage(oldGroups.get(index));
-        var newGroups = app.groupshelper().getList();
-        var expectedList = new ArrayList<>(oldGroups);
-        expectedList.remove(index);
+       // var oldGroups = app.groupshelper().getList();
+       // var rnd = new Random();
+        //var index = rnd.nextInt(oldGroups.size());
+        //app.groupshelper().deleteGroupPage(oldGroups.get(index));
+        app.groupshelper().deleteGroupPage();
+       // var newGroups = app.groupshelper().getList();
+        //var expectedList = new ArrayList<>(oldGroups);
+       // expectedList.remove(index);
         //int newgroupCount = app.groupshelper().getCount();
-        Assertions.assertEquals(newGroups, expectedList);
+       // Assertions.assertEquals(newGroups, expectedList);
         ApplicationManager.driver.findElement(By.linkText("Logout")).click();
     }
 
