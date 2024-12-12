@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tests.ContractCreate" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-12-08T13:13:56" hostname="DESKTOP-KB78DC2" time="6.336">
+<testsuite name="tests.ContractCreate" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-12-12T07:57:30" hostname="DESKTOP-KB78DC2" time="9.332">
   <properties/>
-  <testcase name="[1] DataContact[firstname=, middlename=, lastname=]" classname="tests.ContractCreate" time="2.391"/>
-  <testcase name="[2] DataContact[firstname=Uva, middlename=, lastname=Tatov]" classname="tests.ContractCreate" time="0.751"/>
-  <testcase name="[3] DataContact[firstname=, middlename=Leskov, lastname=Mesov]" classname="tests.ContractCreate" time="0.778"/>
-  <testcase name="[4] DataContact[firstname=, middlename=, lastname=]" classname="tests.ContractCreate" time="0.781"/>
-  <testcase name="[5] DataContact[firstname=ff, middlename=fh, lastname=jf]" classname="tests.ContractCreate" time="0.823"/>
-  <testcase name="[6] DataContact[firstname=icaa, middlename=iadi, lastname=jbbd]" classname="tests.ContractCreate" time="0.805"/>
+  <testcase name="ContractCreate()" classname="tests.ContractCreate" time="1.938"/>
+  <testcase name="ContractCreateWithName()" classname="tests.ContractCreate" time="0.79"/>
+  <testcase name="[1] DataContact[firstname=, middlename=, lastname=]" classname="tests.ContractCreate" time="0.887"/>
+  <testcase name="[2] DataContact[firstname=, middlename=, lastname=Vinokurov]" classname="tests.ContractCreate" time="1.038"/>
+  <testcase name="[3] DataContact[firstname=Uva, middlename=, lastname=Tatov]" classname="tests.ContractCreate" time="0.786"/>
+  <testcase name="[4] DataContact[firstname=, middlename=Leskov, lastname=Mesov]" classname="tests.ContractCreate" time="0.788"/>
+  <testcase name="[5] DataContact[firstname=, middlename=, lastname=]" classname="tests.ContractCreate" time="0.781"/>
+  <testcase name="[6] DataContact[firstname=ib, middlename=gh, lastname=fi]" classname="tests.ContractCreate" time="0.809"/>
+  <testcase name="[7] DataContact[firstname=jicd, middlename=ddje, lastname=eded]" classname="tests.ContractCreate" time="0.821"/>
+  <testcase name="ContractCreateWithLastNameOnly()" classname="tests.ContractCreate" time="0.665"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

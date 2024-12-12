@@ -9,36 +9,38 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
-
+import java.util.ArrayList;
 import static tests.TestBase.app;
 import java.util.List;
 
 public class GroupCreationTest extends TestBase {
 
-
     //public static List<String> groupNameProvider() {
     //    var result = new ArrayList<String>();
-      //  for (int i = 0; i < 3; i++) {
-     //       result.add(randomString(i * 2));
-     //   }
-     //   return  result;
-   // }
+    //  for (int i = 0; i < 3; i++) {
+    //       result.add(randomString(i * 2));
+    //   }
+    //   return  result;
+    // }
 
     public static List<GroupData> groupProvider() {
         var result = new ArrayList<GroupData>(List.of(
                 new GroupData(),
                 new GroupData().withName("Marina"),
-                new GroupData("group name1", "", ""),
-                new GroupData("Inav", "", "")));
+                new GroupData("", "group name1", "", ""),
+                new GroupData("", "Inav", "", "")));
         for (var name : List.of("", "group name")) {
             for (var header : List.of("", "group header")) {
                 for (var footer : List.of("", "group footer")) {
-                    result.add(new GroupData(name, header, footer));
+                    result.add(new GroupData().withName(name).withHeader(header).withFooter(footer));
                 }
             }
         }
         for (int i = 0; i < 3; i++) {
-            result.add(new GroupData(randomString(i * 2), randomString(i * 2), randomString(i * 2)));
+            result.add(new GroupData()
+                    .withName(randomString(i * 2))
+                    .withHeader(randomString(i * 2))
+                    .withFooter(randomString(i * 2)));
         }
         return  result;
     }
@@ -47,7 +49,7 @@ public class GroupCreationTest extends TestBase {
     @Test
     public void CreateGroup() {
         int groupCount = app.groupshelper().getCount();
-        app.groupshelper().canCreateGroup(new GroupData("name", "header", "footer"));
+        app.groupshelper().canCreateGroup(new GroupData("", "name", "header", "footer"));
         int newgroupCount = app.groupshelper().getCount();
         Assertions.assertEquals(groupCount + 1, newgroupCount);
 
@@ -63,23 +65,23 @@ public class GroupCreationTest extends TestBase {
 
     }
 
-@Test
-public void CreateManyGroups() {
-    int n = 3;
-    int groupCount = app.groupshelper().getCount();
-    for (int i = 0; i < n; i++) {
-        app.groupshelper().canCreateGroup(new GroupData(randomString(i * 2), "header", "footer"));
+    @Test
+    public void CreateManyGroups() {
+        int n = 3;
+        int groupCount = app.groupshelper().getCount();
+        for (int i = 0; i < n; i++) {
+            app.groupshelper().canCreateGroup(new GroupData("", randomString(i * 2), "header", "footer"));
+        }
+        int newgroupCount = app.groupshelper().getCount();
+        Assertions.assertEquals(groupCount + n, newgroupCount);
     }
-    int newgroupCount = app.groupshelper().getCount();
-    Assertions.assertEquals(groupCount + n, newgroupCount);
-}
 
 
     @ParameterizedTest
     @ValueSource(strings = {"name1", "name2"})
     public void CreateGroup(String name) {
         int groupCount = app.groupshelper().getCount();
-        app.groupshelper().canCreateGroup(new GroupData(name, "header", "footer"));
+        app.groupshelper().canCreateGroup(new GroupData("", name, "header", "footer"));
         int newgroupCount = app.groupshelper().getCount();
         Assertions.assertEquals(groupCount + 1, newgroupCount);
 
@@ -89,10 +91,10 @@ public void CreateManyGroups() {
     //@ParameterizedTest
     //@MethodSource("groupNameProvider")
     //public void CreateManyGroups(String name) {
-      // int groupCount = app.groupshelper().getCount();
-        //app.groupshelper().canCreateGroup(new GroupData(name, "header", "footer"));
-        //int newgroupCount = app.groupshelper().getCount();
-        //Assertions.assertEquals(groupCount + 1, newgroupCount);
+    // int groupCount = app.groupshelper().getCount();
+    //app.groupshelper().canCreateGroup(new GroupData(name, "header", "footer"));
+    //int newgroupCount = app.groupshelper().getCount();
+    //Assertions.assertEquals(groupCount + 1, newgroupCount);
     //}
     @ParameterizedTest
     @MethodSource("groupProvider")
@@ -102,6 +104,7 @@ public void CreateManyGroups() {
         int newgroupCount = app.groupshelper().getCount();
         Assertions.assertEquals(groupCount + 1, newgroupCount);
     }
+
 
 
 

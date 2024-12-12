@@ -26,7 +26,7 @@ public class ContractCreate extends TestBase{
 
 
     @Test
-        public void ContractCreate() {
+    public void ContractCreate() {
         app.allcontacts().openContactPage();
         app.allcontacts().createContactfull();
     }

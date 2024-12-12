@@ -1,3 +1,5 @@
+import org.gradle.internal.classpath.Instrumented.systemProperty
+
 plugins {
     id("java")
 }
@@ -17,4 +19,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    if (project.hasProperty("browser")) {
+        systemProperty("browser",project.property("browser"))
+    }
 }

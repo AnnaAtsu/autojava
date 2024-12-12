@@ -97,4 +97,42 @@ public class ContactHelper {
         openContactPage();
         return  charge.driver.findElements(By.name("selected[]")).size();
     }
+
+    public void modificationContact(DataContact  modifiedfirstname) {
+        openContactPage();
+        selectContact();
+        initContactModification();
+        fillContactForm(modifiedfirstname);
+        submitContactModification();
+        returnToMainPage();
+    }
+
+    private void returnToMainPage() {
+        charge.driver.findElement(By.linkText("home page")).click();
+    }
+
+    private void fillContactForm(DataContact modifiedfirstname) {
+        charge.driver.findElement(By.name("firstname")).click();
+        charge.driver.findElement(By.name("firstname")).sendKeys(modifiedfirstname.firstname());
+        charge.driver.findElement(By.name("middlename")).click();
+        charge.driver.findElement(By.name("middlename")).sendKeys(modifiedfirstname.middlename());
+        charge.driver.findElement(By.name("lastname")).click();
+        charge.driver.findElement(By.name("lastname")).sendKeys(modifiedfirstname.lastname());
+    }
+
+    private void submitContactModification() {
+        charge.driver.findElement(By.name("update")).click();
+    }
+
+    private void initContactModification() {
+        charge.driver.findElement(By.name("edit")).click();
+    }
+
+    private void selectContact() {
+        charge.driver.findElements(By.name("selected[]"));
+
+    }
+
+
+
 }
