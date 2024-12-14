@@ -1,11 +1,11 @@
 package manager;
 import model.DataContact;
-import model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ContactHelper {
     private final ApplicationManager charge;
@@ -102,8 +102,7 @@ public class ContactHelper {
     }
 
     public void modificationContact(DataContact  modifiedfirstname) {
-        openContactPage();
-        selectContact();
+        //selectContact();
         initContactModification();
         fillContactForm(modifiedfirstname);
         submitContactModification();
@@ -124,18 +123,19 @@ public class ContactHelper {
     }
 
     private void submitContactModification() {
-        charge.driver.findElement(By.xpath("(//input[@name='update'])[2]")).click();
+        charge.driver.findElement(By.xpath("//*[@id=\"content\"]/form[1]/input[1]")).click();
     }
 
     private void initContactModification() {
-        charge.driver.findElement(By.cssSelector("tr td:nth-child(8) a")).click();
+        charge.driver.findElement(By.xpath("//a[contains(@href, 'edit.php')]")).click();
 
     }
 
-    private void selectContact() {
-        charge.driver.findElements(By.name("selected[]"));
+//public void selectContact() {
+    //   charge.driver.findElements(By.name("selected[]")).click();
+   // }
 
-    }
+
 
 
     public List<DataContact> getList() {

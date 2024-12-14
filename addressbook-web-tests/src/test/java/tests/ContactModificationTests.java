@@ -8,7 +8,13 @@ public class ContactModificationTests extends TestBase{
     @Test
     void ModifyContact() {
         app.allcontacts().openContactPage();
-        app.allcontacts().createContactshort(new DataContact("firstname", "middlename", "lastname"));
+        if(!app.isContactPresent(By.name("selected[]"))) {
+            app.allcontacts().openContactPage();
+            app.allcontacts().createContactshort(new DataContact().withFirstName("Maxim14"));
+        }
+      //  if(!app.allcontacts().selectContact()){
+       //     app.allcontacts().createContactshort(new DataContact("firstname", "middlename", "lastname"));
+        //}
 
         app.allcontacts().modificationContact(new DataContact().withFirstName("modifiedfirstname"));
     }
