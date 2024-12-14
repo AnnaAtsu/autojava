@@ -4,6 +4,9 @@ import model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactHelper {
     private final ApplicationManager charge;
 
@@ -28,7 +31,7 @@ public class ContactHelper {
         charge.driver.findElement(By.linkText("home page")).click();
     }
 
-    public void removeContact() {
+    public void removeContact(DataContact dataContact) {
         charge.driver.findElement(By.name("selected[]")).click();
         charge.driver.findElement(By.xpath("//input[@value='Delete']")).click();
        charge.driver.switchTo().alert().accept();
@@ -121,11 +124,12 @@ public class ContactHelper {
     }
 
     private void submitContactModification() {
-        charge.driver.findElement(By.name("update")).click();
+        charge.driver.findElement(By.xpath("(//input[@name='update'])[2]")).click();
     }
 
     private void initContactModification() {
-        charge.driver.findElement(By.name("edit")).click();
+        charge.driver.findElement(By.cssSelector("tr td:nth-child(8) a")).click();
+
     }
 
     private void selectContact() {
@@ -134,5 +138,15 @@ public class ContactHelper {
     }
 
 
-
+    public List<DataContact> getList() {
+      var contacts = new ArrayList<DataContact>();
+      var trList = charge.driver.findElements(By.cssSelector(".center"));
+      for (var trPart : trList) {
+          var name = trPart.getText();
+          var chekbox = trPart.findElement(By.name("selected[]"));
+          var id = chekbox.getAttribute("value");
+           contacts.add(new DataContact().withFirstName(name));
+       }
+      return contacts;
+   }
 }

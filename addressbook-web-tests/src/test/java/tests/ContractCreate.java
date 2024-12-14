@@ -19,7 +19,10 @@ public class ContractCreate extends TestBase{
                 new DataContact("Uva", "", "Tatov"),
                 new DataContact("", "Leskov", "Mesov")));
         for(var i =0; i < 3; i++) {
-            result.add(new DataContact(randomString(i * 2), randomString(i * 2), randomString(i * 2)));
+            result.add(new DataContact()
+                    .withFirstName(randomString(i * 2))
+                    .withMiddleName(randomString(i * 2))
+                    .withLastname(randomString(i * 2)));
         }
         return result;
     }

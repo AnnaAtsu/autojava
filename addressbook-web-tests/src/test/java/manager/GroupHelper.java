@@ -57,9 +57,9 @@ public class GroupHelper {
       //  returnToGroupsPage();
   //  }
 
-    public void deleteGroupPage() {
+    public void deleteGroupPage(GroupData groupData) {
         openGroupPage();
-      //  selectGroup(groupData);
+      selectGroup(groupData);
         manager.driver.findElement(By.name("selected[]")).click();
         manager.driver.findElement(By.cssSelector(".group:nth-child(8) > input")).click();
         manager.driver.findElement(By.name("delete")).click();
@@ -108,7 +108,7 @@ public class GroupHelper {
     }
 
     private void selectGroup(GroupData groupData) {
-        //manager.driver.findElement(By.name("selected[]")).click();
+       // manager.driver.findElement(By.name("selected[]")).click();
         manager.driver.findElement(By.cssSelector(String.format("input[value='%s']", groupData.id())));
     }
     public List<GroupData> getList() {

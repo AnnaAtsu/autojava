@@ -59,7 +59,7 @@ public class GroupCreationTest extends TestBase {
     public void CreateGroupOnlyName() {
         //ApplicationManager.driver.findElement(By.linkText("groups")).click();
         var emptyGroup = new GroupData();
-        var groupWithName = emptyGroup.withName("DARIA");
+        var groupWithName = emptyGroup.withName("DARIANA");
         //var groupData = new GroupData(name, this.header, this.footer);
         app.groupshelper().canCreateGroup(groupWithName);
 
