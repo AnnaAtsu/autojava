@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
 import model.DataContact;
 import model.GroupData;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -22,7 +23,7 @@ public class ContractCreate extends TestBase {
     public static List<DataContact> ContactProdiver() throws IOException {
         var result = new ArrayList<DataContact>();
         ObjectMapper mapper = new ObjectMapper();
-        var value = mapper.readValue(new File("groups.json"), new TypeReference<List<DataContact>>() {});
+        var value = mapper.readValue(new File("contacts.json"), new TypeReference<List<DataContact>>() {});
         result.addAll(value);
         return result;
     }
@@ -66,13 +67,6 @@ public class ContractCreate extends TestBase {
         app.allcontacts().createContactshort(emptyContactWithLastName);
     }
 
-    @ParameterizedTest
-    @MethodSource("ContactProdiver")
-    public void ContractMultipleCreate(DataContact dataContact) {
-        int contactCount = app.allcontacts().getCount();
-        app.allcontacts().createContactshort(dataContact);
-        int newContactCount = app.allcontacts().getCount();
-    }
 
 //Лекция 5.1. Пути к файлам и директориям
     @Test
@@ -98,6 +92,16 @@ public class ContractCreate extends TestBase {
 
     }
 
+
+
+    @ParameterizedTest
+    @MethodSource("ContactProdiver")
+    public void ContractMultipleCreate(DataContact dataContact) {
+        int contactCount = app.allcontacts().getCount();
+        app.allcontacts().createContactshort(dataContact);
+        int newContactCount = app.allcontacts().getCount();
+        Assertions.assertEquals(contactCount, newContactCount);
+    }
 
 }
 

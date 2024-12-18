@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tests.GroupCreationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-18T14:54:36" hostname="DESKTOP-KB78DC2" time="2.149">
+<testsuite name="tests.GroupCreationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-12-18T19:22:16" hostname="DESKTOP-KB78DC2" time="4.166">
   <properties/>
-  <testcase name="CreateGroupOnlyName()" classname="tests.GroupCreationTest" time="2.149"/>
+  <testcase name="CreateManyGroups()" classname="tests.GroupCreationTest" time="3.32"/>
+  <testcase name="[1] GroupData[id=, name=, header=, footer=]" classname="tests.GroupCreationTest" time="0.68"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
