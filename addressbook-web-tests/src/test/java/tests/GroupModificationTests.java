@@ -12,13 +12,13 @@ public class GroupModificationTests extends TestBase{
 
     @Test
     void CanModifyGroup() {
-        if(!app.groupshelper().isGroupPresent()) {
+        if(app.groupshelper().getCount() == 0) {
             app.groupshelper().canCreateGroup(new GroupData("", "group name", "group header", "group footer"));
         }
         var oldGroups = app.groupshelper.getList();
         var rnd = new Random();
         var index = rnd.nextInt(oldGroups.size());
-        GroupData testData = new GroupData().withName("modified name");
+        var testData = new GroupData().withName("modified name");
         //app.groupshelper().modifyGroup(new GroupData().withName("modified name"));
         app.groupshelper().modifyGroup(oldGroups.get(index), testData);
         var newGroups = app.groupshelper().getList();

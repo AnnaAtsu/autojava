@@ -1,16 +1,13 @@
 package tests;
+import common.CommonFunctions;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
-import java.util.ArrayList;
-import static tests.TestBase.app;
 import java.util.List;
 
 public class GroupCreationTest extends TestBase {
@@ -38,9 +35,9 @@ public class GroupCreationTest extends TestBase {
         }
         for (int i = 0; i < 3; i++) {
             result.add(new GroupData()
-                    .withName(randomString(i * 2))
-                    .withHeader(randomString(i * 2))
-                    .withFooter(randomString(i * 2)));
+                    .withName(CommonFunctions.randomString(i * 2))
+                    .withHeader(CommonFunctions.randomString(i * 2))
+                    .withFooter(CommonFunctions.randomString(i * 2)));
         }
         return  result;
     }
@@ -70,7 +67,7 @@ public class GroupCreationTest extends TestBase {
         int n = 3;
         int groupCount = app.groupshelper().getCount();
         for (int i = 0; i < n; i++) {
-            app.groupshelper().canCreateGroup(new GroupData("", randomString(i * 2), "header", "footer"));
+            app.groupshelper().canCreateGroup(new GroupData("", CommonFunctions.randomString(i * 2), "header", "footer"));
         }
         int newgroupCount = app.groupshelper().getCount();
         Assertions.assertEquals(groupCount + n, newgroupCount);

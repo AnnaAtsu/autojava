@@ -3,6 +3,7 @@ import model.DataContact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -101,10 +102,10 @@ public class ContactHelper {
         return  charge.driver.findElements(By.name("selected[]")).size();
     }
 
-    public void modificationContact(DataContact  modifiedfirstname) {
-        //selectContact();
+    public void modificationContact(DataContact dataContact, DataContact modifiedfirstname1) {
+        selectContact(dataContact);
         initContactModification();
-        fillContactForm(modifiedfirstname);
+        fillContactForm(modifiedfirstname1);
         submitContactModification();
         returnToMainPage();
     }
@@ -131,22 +132,41 @@ public class ContactHelper {
 
     }
 
-//public void selectContact() {
-    //   charge.driver.findElements(By.name("selected[]")).click();
-   // }
+   public void selectContact(DataContact dataContact) {
+       charge.driver.findElement(By.xpath(String.format("//a[contains(@href, 'edit.php='%s')]", dataContact.firstname()))).click();
+    }
 
 
 
 
     public List<DataContact> getList() {
       var contacts = new ArrayList<DataContact>();
-      var trList = charge.driver.findElements(By.cssSelector(".center"));
+      var trList = charge.driver.findElements(By.cssSelector("tr td:nth-child(8)"));
       for (var trPart : trList) {
           var name = trPart.getText();
-          var chekbox = trPart.findElement(By.name("selected[]"));
+          var chekbox = trPart.findElement(By.xpath("//a[contains(@href, 'edit.php')]"));
           var id = chekbox.getAttribute("value");
            contacts.add(new DataContact().withFirstName(name));
        }
       return contacts;
    }
+
+
+
+
+   protected  void  attach(By locator, String file) {
+        charge.driver.findElement(locator).sendKeys(Paths.get(file).toAbsolutePath().toString());
+   }
+ //Лекция 5.1. Пути к файлам и директориям
+    private void fillContactFormwithFile(DataContact contact) {
+        charge.driver.findElement(By.name("firstname")).click();
+        charge.driver.findElement(By.name("firstname")).sendKeys(contact.firstname());
+        charge.driver.findElement(By.name("middlename")).click();
+        charge.driver.findElement(By.name("middlename")).sendKeys(contact.middlename());
+        charge.driver.findElement(By.name("lastname")).click();
+        charge.driver.findElement(By.name("lastname")).sendKeys(contact.lastname());
+        attach(By.name("photo"), contact.photo());
+    }
+
+
 }

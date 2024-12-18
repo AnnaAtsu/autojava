@@ -90,7 +90,7 @@ public class GroupHelper {
     }
 
     private void initGroupModification() {
-        manager.driver.findElement(By.name("edit")).click();
+        manager.driver.findElement(By.xpath("//*[@id=\"content\"]/form/input[6]")).click();
     }
 
     private void fillGroupForm(GroupData groupData) {
@@ -108,8 +108,8 @@ public class GroupHelper {
     }
 
     private void selectGroup(GroupData groupData) {
-       // manager.driver.findElement(By.name("selected[]")).click();
-        manager.driver.findElement(By.cssSelector(String.format("input[value='%s']", groupData.id())));
+        //manager.driver.findElement(By.name("selected[]")).click();
+        manager.driver.findElement(By.cssSelector(String.format("input[value='%s']", groupData.id()))).click();
     }
     public List<GroupData> getList() {
         var groups = new ArrayList<GroupData>();
