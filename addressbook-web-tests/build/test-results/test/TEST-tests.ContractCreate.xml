@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tests.ContractCreate" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-18T07:10:33" hostname="DESKTOP-KB78DC2" time="3.003">
-  <properties/>
-  <testcase name="ContractCreateWithNameWithRandomFile()" classname="tests.ContractCreate" time="3.003"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

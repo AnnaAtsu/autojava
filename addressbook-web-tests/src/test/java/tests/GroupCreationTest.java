@@ -1,4 +1,6 @@
 package tests;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
@@ -7,6 +9,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,27 +24,51 @@ public class GroupCreationTest extends TestBase {
     //   return  result;
     // }
 
-    public static List<GroupData> groupProvider() {
-        var result = new ArrayList<GroupData>(List.of(
-                new GroupData(),
-                new GroupData().withName("Marina"),
-                new GroupData("", "group name1", "", ""),
-                new GroupData("", "Inav", "", "")));
-        for (var name : List.of("", "group name")) {
-            for (var header : List.of("", "group header")) {
-                for (var footer : List.of("", "group footer")) {
-                    result.add(new GroupData().withName(name).withHeader(header).withFooter(footer));
-                }
-            }
-        }
-        for (int i = 0; i < 3; i++) {
-            result.add(new GroupData()
-                    .withName(CommonFunctions.randomString(i * 2))
-                    .withHeader(CommonFunctions.randomString(i * 2))
-                    .withFooter(CommonFunctions.randomString(i * 2)));
-        }
+
+    public static List<GroupData> groupProvider() throws IOException {
+        var result = new ArrayList<GroupData>();
+
+        ObjectMapper mapper = new ObjectMapper();
+        var value = mapper.readValue(new File("groups.json"), new TypeReference<List<GroupData>>() {});
+        result.addAll(value);
         return  result;
     }
+
+
+
+
+    //Старая версия до Лекции 5
+
+    //public static List<GroupData> groupProvider() {
+      //  var result = new ArrayList<GroupData>(List.of(
+        //        new GroupData(),
+          //      new GroupData().withName("Marina"),
+            //    new GroupData("", "group name1", "", ""),
+              //  new GroupData("", "Inav", "", "")));
+        //for (var name : List.of("", "group name")) {
+          //  for (var header : List.of("", "group header")) {
+            //    for (var footer : List.of("", "group footer")) {
+              //      result.add(new GroupData().withName(name).withHeader(header).withFooter(footer));
+                //}
+           // }
+        //}
+        //for (int i = 0; i < 3; i++) {
+          //  result.add(new GroupData()
+            //        .withName(CommonFunctions.randomString(i * 2))
+              //      .withHeader(CommonFunctions.randomString(i * 2))
+                //    .withFooter(CommonFunctions.randomString(i * 2)));
+        //}
+        //return  result;
+       //     }
+
+
+
+
+
+
+
+
+
 
 
     @Test
