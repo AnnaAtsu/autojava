@@ -24,4 +24,9 @@ tasks.test {
    // if (project.hasProperty("browser")) {
      //   systemProperty("browser",project.property("browser"))
    // }
+    if (project.hasProperty("target")) {
+           systemProperty("target",project.property("target"))
+        }
+
+
 }

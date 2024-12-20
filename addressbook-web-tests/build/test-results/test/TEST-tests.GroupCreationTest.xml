@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tests.GroupCreationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-12-18T19:22:16" hostname="DESKTOP-KB78DC2" time="4.166">
+<testsuite name="tests.GroupCreationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-12-20T11:55:53" hostname="DESKTOP-KB78DC2" time="4.699">
   <properties/>
-  <testcase name="CreateManyGroups()" classname="tests.GroupCreationTest" time="3.32"/>
-  <testcase name="[1] GroupData[id=, name=, header=, footer=]" classname="tests.GroupCreationTest" time="0.68"/>
+  <testcase name="CreateGroup()" classname="tests.GroupCreationTest" time="3.278"/>
+  <testcase name="[1] name1" classname="tests.GroupCreationTest" time="0.716"/>
+  <testcase name="[2] name2" classname="tests.GroupCreationTest" time="0.688"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
