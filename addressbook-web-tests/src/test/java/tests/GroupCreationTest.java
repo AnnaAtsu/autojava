@@ -12,6 +12,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class GroupCreationTest extends TestBase {
@@ -130,7 +131,32 @@ public class GroupCreationTest extends TestBase {
         Assertions.assertEquals(groupCount + 1, newgroupCount);
     }
 
+    // Провайдер один для jdbc
+    public static List<GroupData> singleRandomGroup() {
+        return List.of(new GroupData()
+                .withName(CommonFunctions.randomString( 10))
+                .withHeader(CommonFunctions.randomString( 10))
+                .withFooter(CommonFunctions.randomString( 10)));
+    }
 
+
+    @ParameterizedTest
+    @MethodSource("singleRandomGroup")
+    public void CreateGroupWithJDBC(GroupData groupData) {
+        var oldGroups = app.jdbc().getGroupList();
+        app.groupshelper().canCreateGroup(groupData);
+        var newGroups = app.jdbc().getGroupList();
+        Comparator<GroupData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newGroups.sort(compareById);
+        var maxId = newGroups.get(newGroups.size() - 1).id();
+        var expectedList = new ArrayList<>(oldGroups);
+        expectedList.add(groupData.withId(maxId));
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newGroups, expectedList);
+
+           }
 
 
 }

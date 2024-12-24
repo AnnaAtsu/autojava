@@ -17,6 +17,8 @@ public class ApplicationManager {
     public GroupHelper groupshelper;
     public ContactHelper allcontacts;
     private Properties properties;
+    //Добавлено в лекции 6.1
+    private JdbcHelper jdbc;
 
 
     public void init(String browser, Properties properties) {
@@ -45,6 +47,14 @@ public class ApplicationManager {
             session = new LoginHelper(this);
         }
         return session;
+    }
+
+
+    public JdbcHelper jdbc() {
+        if (jdbc == null) {
+            jdbc = new JdbcHelper(this);
+        }
+        return jdbc;
     }
 
 

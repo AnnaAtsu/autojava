@@ -61,7 +61,8 @@ public class GroupHelper {
         openGroupPage();
       selectGroup(groupData);
         manager.driver.findElement(By.name("selected[]")).click();
-        manager.driver.findElement(By.cssSelector(".group:nth-child(8) > input")).click();
+        //manager.driver.findElement(By.cssSelector(".group:nth-child(8) > input")).click();
+        manager.driver.findElement(By.xpath("//*[@id=\"content\"]/form/span[1]/input")).click();
         manager.driver.findElement(By.name("delete")).click();
         returnToGroupsPage();
     }

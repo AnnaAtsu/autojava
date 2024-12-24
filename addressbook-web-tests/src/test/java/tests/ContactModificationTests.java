@@ -29,7 +29,7 @@ public class ContactModificationTests extends TestBase{
     void ModifyContactWithComparasion() {
         app.allcontacts().openContactPage();
         if(app.allcontacts().getCount() == 0) {
-            app.allcontacts().createContactshort(new DataContact().withFirstName("Alexander"));
+            app.allcontacts().createContactshort(new DataContact().withFirstName("Nickolas"));
         }
             var oldContacts = app.allcontacts().getList();
             var rnd = new Random();

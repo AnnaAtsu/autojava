@@ -103,6 +103,16 @@ public class ContractCreate extends TestBase {
         Assertions.assertEquals(contactCount, newContactCount);
     }
 
+// Лекция 6
+    @ParameterizedTest
+    @MethodSource("ContactProdiver")
+    public void ContractMultipleWithJDBC(DataContact dataContact) {
+        int contactCount = app.allcontacts().getCount();
+        app.allcontacts().createContactshort(dataContact);
+        int newContactCount = app.allcontacts().getCount();
+        Assertions.assertEquals(contactCount, newContactCount);
+    }
+
 }
 
 
