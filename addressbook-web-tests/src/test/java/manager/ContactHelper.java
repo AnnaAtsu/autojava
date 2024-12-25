@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class ContactHelper {
     private final ApplicationManager manager;
@@ -102,10 +101,10 @@ public class ContactHelper {
         return  manager.driver.findElements(By.name("selected[]")).size();
     }
 
-    public void modificationContact(DataContact dataContact, DataContact modifiedfirstname1) {
-        selectContact(dataContact);
-        initContactModification();
-        fillContactForm(modifiedfirstname1);
+    public void modificationContact(DataContact oldContact, DataContact newContact) {
+        selectContact(oldContact);
+       // initContactModification();
+        fillContactForm(newContact);
         submitContactModification();
         returnToMainPage();
     }
@@ -114,13 +113,16 @@ public class ContactHelper {
         manager.driver.findElement(By.linkText("home page")).click();
     }
 
-    private void fillContactForm(DataContact modifiedfirstname) {
+    private void fillContactForm(DataContact newContact) {
         manager.driver.findElement(By.name("firstname")).click();
-        manager.driver.findElement(By.name("firstname")).sendKeys(modifiedfirstname.firstname());
+        manager.driver.findElement(By.name("firstname")).clear();
+        manager.driver.findElement(By.name("firstname")).sendKeys(newContact.firstname());
         manager.driver.findElement(By.name("middlename")).click();
-        manager.driver.findElement(By.name("middlename")).sendKeys(modifiedfirstname.middlename());
+        manager.driver.findElement(By.name("middlename")).clear();
+        manager.driver.findElement(By.name("middlename")).sendKeys(newContact.middlename());
         manager.driver.findElement(By.name("lastname")).click();
-        manager.driver.findElement(By.name("lastname")).sendKeys(modifiedfirstname.lastname());
+        manager.driver.findElement(By.name("lastname")).clear();
+        manager.driver.findElement(By.name("lastname")).sendKeys(newContact.lastname());
     }
 
     private void submitContactModification() {
@@ -133,9 +135,9 @@ public class ContactHelper {
     }
 
    public void selectContact(DataContact dataContact) {
-      // manager.driver.findElement(By.xpath(String.format("//a[contains(@href, 'edit.php?id='%s')]", dataContact.firstname()))).click();
+       manager.driver.findElement(By.xpath(String.format("//a[contains(@href, 'edit.php?id=%s')]", dataContact.id()))).click();
       // manager.driver.findElement(By.cssSelector(String.format("tr td:nth-child(8)", dataContact.withFirstName("Marianna")))).click();
-       manager.driver.findElement(By.cssSelector(String.format("tr td:nth-child(8)", dataContact.firstname()))).click();
+      // manager.driver.findElement(By.cssSelector(String.format("tr td:nth-child(8)", dataContact.id()))).click();
     }
 
 
@@ -146,11 +148,17 @@ public class ContactHelper {
      //var trList = charge.driver.findElements(By.cssSelector("tr td:nth-child(8)"));
         var trList = manager.driver.findElements(By.name("entry"));
       for (var trPart : trList) {
-          var td = trPart.findElement(By.cssSelector("tr td:nth-child(8)"));
+          var td = trPart.findElement(By.cssSelector("tr td:nth-child(3)"));
+          //получить имя
           var name = td.getText();
-          var checkbox = trPart.findElement(By.xpath("//a[contains(@href, 'edit.php')]"));
+          var td2 = trPart.findElement(By.cssSelector("tr td:nth-child(2)"));
+           var lastname = td2.getText();
+          //получить идентификатор строки
+          //var checkbox = trPart.findElement(By.xpath("//a[contains(@href, 'edit.php')]"));
+          //var checkbox = trPart.findElement(By.xpath("//a[contains(@href, 'edit.php')]"));
+          var checkbox = trPart.findElement(By.cssSelector("input[type=checkbox]"));
           var id = checkbox.getAttribute("value");
-           contacts.add(new DataContact().withFirstName(name));
+           contacts.add(new DataContact().withId(id).withFirstName(name).withLastname(lastname));
        }
       return contacts;
    }

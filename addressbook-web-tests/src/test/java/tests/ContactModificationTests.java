@@ -1,6 +1,5 @@
 package tests;
 import model.DataContact;
-import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -35,17 +34,17 @@ public class ContactModificationTests extends TestBase{
             var oldContacts = app.allcontacts().getList();
             var rnd = new Random();
             var index = rnd.nextInt(oldContacts.size());
-        var testData = new DataContact().withFirstName("modified name NeNastya").withLastname("Ivanova");
-            app.allcontacts().modificationContact(oldContacts.get(index), testData);
+        var testData = new DataContact().withFirstName("new name").withLastname("new lastname");
+           app.allcontacts().modificationContact(oldContacts.get(index), testData);
           var newContacts = app.allcontacts().getList();
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.set(index, testData.withFirstName(oldContacts.get(index).firstname()));
-        Comparator<DataContact> compareByName = (o1, o2) -> {
-          //  return Integer.compare(Integer.parseInt(o1.firstname()), Integer.parseInt(o2.firstname()));
-            return CharSequence.compare(o1.firstname(), o2.firstname());
-        };
-        newContacts.sort(compareByName);
-        expectedList.sort(compareByName);
+        expectedList.set(index, testData.withId(oldContacts.get(index).id()));
+        Comparator<DataContact> compareById = (o1, o2) -> {
+           return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+          };
+
+        newContacts.sort(compareById);
+        expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
 
         //  if(!app.allcontacts().selectContact()){
@@ -54,10 +53,6 @@ public class ContactModificationTests extends TestBase{
 
        // app.allcontacts().modificationContact(new DataContact().withFirstName("modifiedfirstname"));
     }
-
-
-
-
 
 
 }
