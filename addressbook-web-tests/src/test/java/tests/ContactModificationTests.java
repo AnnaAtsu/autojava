@@ -13,7 +13,7 @@ public class ContactModificationTests extends TestBase{
 
     @Test
     void ModifyContact() {
-        app.allcontacts().openContactPage();
+       // app.allcontacts().openContactPage();
         if(!app.isContactPresent(By.name("selected[]"))) {
             app.allcontacts().openContactPage();
             app.allcontacts().createContactshort(new DataContact().withFirstName("Maxim14"));
@@ -27,20 +27,22 @@ public class ContactModificationTests extends TestBase{
 
     @Test
     void ModifyContactWithComparasion() {
-        app.allcontacts().openContactPage();
+       app.allcontacts().openContactPage();
         if(app.allcontacts().getCount() == 0) {
-            app.allcontacts().createContactshort(new DataContact().withFirstName("Nickolas"));
+            //app.allcontacts().createContactshort(new DataContact("Nickolas", "",));
+            app.allcontacts().createContactshort(new DataContact().withFirstName("Marianna").withLastname("Smirnova22"));
         }
             var oldContacts = app.allcontacts().getList();
             var rnd = new Random();
             var index = rnd.nextInt(oldContacts.size());
-        var testData = new DataContact().withFirstName("modified name Nastya");
+        var testData = new DataContact().withFirstName("modified name NeNastya").withLastname("Ivanova");
             app.allcontacts().modificationContact(oldContacts.get(index), testData);
           var newContacts = app.allcontacts().getList();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.set(index, testData.withFirstName(oldContacts.get(index).firstname()));
         Comparator<DataContact> compareByName = (o1, o2) -> {
-            return Integer.compare(Integer.parseInt(o1.firstname()), Integer.parseInt(o2.firstname()));
+          //  return Integer.compare(Integer.parseInt(o1.firstname()), Integer.parseInt(o2.firstname()));
+            return CharSequence.compare(o1.firstname(), o2.firstname());
         };
         newContacts.sort(compareByName);
         expectedList.sort(compareByName);

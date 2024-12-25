@@ -133,7 +133,9 @@ public class ContactHelper {
     }
 
    public void selectContact(DataContact dataContact) {
-       manager.driver.findElement(By.xpath(String.format("//a[contains(@href, 'edit.php='%s')]", dataContact.firstname()))).click();
+      // manager.driver.findElement(By.xpath(String.format("//a[contains(@href, 'edit.php?id='%s')]", dataContact.firstname()))).click();
+      // manager.driver.findElement(By.cssSelector(String.format("tr td:nth-child(8)", dataContact.withFirstName("Marianna")))).click();
+       manager.driver.findElement(By.cssSelector(String.format("tr td:nth-child(8)", dataContact.firstname()))).click();
     }
 
 
@@ -155,7 +157,7 @@ public class ContactHelper {
 
 
 
-
+    //Лекция 5.1. Пути к файлам и директориям
    protected  void  attach(By locator, String file) {
        manager.driver.findElement(locator).sendKeys(Paths.get(file).toAbsolutePath().toString());
    }
