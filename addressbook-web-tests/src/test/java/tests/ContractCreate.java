@@ -1,4 +1,5 @@
 package tests;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
@@ -12,18 +13,19 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 
 public class ContractCreate extends TestBase {
 
 
-
-
     public static List<DataContact> ContactProdiver() throws IOException {
         var result = new ArrayList<DataContact>();
         ObjectMapper mapper = new ObjectMapper();
-        var value = mapper.readValue(new File("contacts.json"), new TypeReference<List<DataContact>>() {});
+        var value = mapper.readValue(new File("contacts.json"), new TypeReference<List<DataContact>>() {
+        });
         result.addAll(value);
         return result;
     }
@@ -31,19 +33,19 @@ public class ContractCreate extends TestBase {
 
     //Старая версия до Лекции 5
 
- //   public static List<DataContact> ContactProdiver() {
-   //     var result = new ArrayList<DataContact>(List.of(
-     //           new DataContact(),
-       //         new DataContact().withLastname("Vinokurov"),
-         //       new DataContact("Uva", "", "Tatov", ""),
-           //     new DataContact("", "Leskov", "Mesov", "")));
-        //for (var i = 0; i < 3; i++) {
-          //  result.add(new DataContact()
-            //        .withFirstName(CommonFunctions.randomString(i * 2))
-              //      .withMiddleName(CommonFunctions.randomString(i * 2))
-                //    .withLastname(CommonFunctions.randomString(i * 2)));
-       // }
-        //return result;
+    //   public static List<DataContact> ContactProdiver() {
+    //     var result = new ArrayList<DataContact>(List.of(
+    //           new DataContact(),
+    //         new DataContact().withLastname("Vinokurov"),
+    //       new DataContact("Uva", "", "Tatov", ""),
+    //     new DataContact("", "Leskov", "Mesov", "")));
+    //for (var i = 0; i < 3; i++) {
+    //  result.add(new DataContact()
+    //        .withFirstName(CommonFunctions.randomString(i * 2))
+    //      .withMiddleName(CommonFunctions.randomString(i * 2))
+    //    .withLastname(CommonFunctions.randomString(i * 2)));
+    // }
+    //return result;
     //}
 
 
@@ -68,7 +70,7 @@ public class ContractCreate extends TestBase {
     }
 
 
-//Лекция 5.1. Пути к файлам и директориям
+    //Лекция 5.1. Пути к файлам и директориям
     @Test
     public void ContractCreateWithNameWithFile() {
         app.allcontacts().openContactPage();
@@ -93,7 +95,6 @@ public class ContractCreate extends TestBase {
     }
 
 
-
     @ParameterizedTest
     @MethodSource("ContactProdiver")
     public void ContractMultipleCreate(DataContact dataContact) {
@@ -103,7 +104,7 @@ public class ContractCreate extends TestBase {
         Assertions.assertEquals(contactCount, newContactCount);
     }
 
-// Лекция 6
+    // Лекция 6
     @ParameterizedTest
     @MethodSource("ContactProdiver")
     public void ContractMultipleWithJDBC(DataContact dataContact) {
@@ -112,6 +113,36 @@ public class ContractCreate extends TestBase {
         int newContactCount = app.allcontacts().getCount();
         Assertions.assertEquals(contactCount, newContactCount);
     }
+
+
+    // Провайдер один для jdbc
+    public static List<DataContact> singleRandomContact() {
+        return List.of(new DataContact()
+                .withFirstName(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(10)));
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("singleRandomContact")
+    public void ContractCreateWithComparasion(DataContact dataContact) {
+        //  app.allcontacts().openContactPage();
+        var oldContacts = app.allcontacts().getList();
+        app.allcontacts().openContactPageForNewContact();
+        app.allcontacts().createContactshort(dataContact);
+        var newContacts = app.allcontacts().getList();
+        Comparator<DataContact> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+
+        newContacts.sort(compareById);
+        var expectedList = new ArrayList<>(oldContacts);
+        expectedList.add(dataContact.withId(newContacts.get(newContacts.size() - 1).id()));
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newContacts, expectedList);
+
+    }
+
 
 }
 

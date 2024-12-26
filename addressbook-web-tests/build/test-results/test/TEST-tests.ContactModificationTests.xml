@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tests.ContactModificationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-25T16:31:24" hostname="DESKTOP-KB78DC2" time="32.108">
-  <properties/>
-  <testcase name="ModifyContactWithComparasion()" classname="tests.ContactModificationTests" time="32.108"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

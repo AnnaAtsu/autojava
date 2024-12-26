@@ -1,4 +1,5 @@
 package manager;
+
 import model.DataContact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -20,6 +21,11 @@ public class ContactHelper {
         manager.driver.findElement(By.xpath("//a[contains(@href, 'edit.php')]")).click();
     }
 
+    public void openContactPageForNewContact() {
+        manager.driver.get("http://localhost/addressbook/edit.php");
+
+    }
+
     public void createContactshort(DataContact dataContact) {
         manager.driver.findElement(By.name("firstname")).click();
         manager.driver.findElement(By.name("firstname")).sendKeys(dataContact.firstname());
@@ -35,6 +41,19 @@ public class ContactHelper {
         manager.driver.findElement(By.name("selected[]")).click();
         manager.driver.findElement(By.xpath("//input[@value='Delete']")).click();
         manager.driver.switchTo().alert().accept();
+    }
+
+    public void removeContactWithComparasion(DataContact dataContact) {
+        selectContactToDelete(dataContact);
+        //manager.driver.findElement(By.name("selected[]")).click();
+        manager.driver.findElement(By.xpath("//input[@value='Delete']")).click();
+        //manager.driver.switchTo().alert().accept();
+    }
+
+    public void selectContactToDelete(DataContact dataContact) {
+        manager.driver.findElement(By.cssSelector(String.format("input[value='%s']", dataContact.id()))).click();
+        // manager.driver.findElement(By.cssSelector(String.format("tr td:nth-child(8)", dataContact.withFirstName("Marianna")))).click();
+        // manager.driver.findElement(By.cssSelector(String.format("tr td:nth-child(8)", dataContact.id()))).click();
     }
 
     public void createContactfull() {
@@ -98,12 +117,12 @@ public class ContactHelper {
 
     public int getCount() {
         openContactPage();
-        return  manager.driver.findElements(By.name("selected[]")).size();
+        return manager.driver.findElements(By.name("selected[]")).size();
     }
 
     public void modificationContact(DataContact oldContact, DataContact newContact) {
         selectContact(oldContact);
-       // initContactModification();
+        // initContactModification();
         fillContactForm(newContact);
         submitContactModification();
         returnToMainPage();
@@ -134,42 +153,40 @@ public class ContactHelper {
 
     }
 
-   public void selectContact(DataContact dataContact) {
-       manager.driver.findElement(By.xpath(String.format("//a[contains(@href, 'edit.php?id=%s')]", dataContact.id()))).click();
-      // manager.driver.findElement(By.cssSelector(String.format("tr td:nth-child(8)", dataContact.withFirstName("Marianna")))).click();
-      // manager.driver.findElement(By.cssSelector(String.format("tr td:nth-child(8)", dataContact.id()))).click();
+    public void selectContact(DataContact dataContact) {
+        manager.driver.findElement(By.xpath(String.format("//a[contains(@href, 'edit.php?id=%s')]", dataContact.id()))).click();
+        // manager.driver.findElement(By.cssSelector(String.format("tr td:nth-child(8)", dataContact.withFirstName("Marianna")))).click();
+        // manager.driver.findElement(By.cssSelector(String.format("tr td:nth-child(8)", dataContact.id()))).click();
     }
 
 
-
-
     public List<DataContact> getList() {
-      var contacts = new ArrayList<DataContact>();
-     //var trList = charge.driver.findElements(By.cssSelector("tr td:nth-child(8)"));
+        var contacts = new ArrayList<DataContact>();
+        //var trList = charge.driver.findElements(By.cssSelector("tr td:nth-child(8)"));
         var trList = manager.driver.findElements(By.name("entry"));
-      for (var trPart : trList) {
-          var td = trPart.findElement(By.cssSelector("tr td:nth-child(3)"));
-          //получить имя
-          var name = td.getText();
-          var td2 = trPart.findElement(By.cssSelector("tr td:nth-child(2)"));
-           var lastname = td2.getText();
-          //получить идентификатор строки
-          //var checkbox = trPart.findElement(By.xpath("//a[contains(@href, 'edit.php')]"));
-          //var checkbox = trPart.findElement(By.xpath("//a[contains(@href, 'edit.php')]"));
-          var checkbox = trPart.findElement(By.cssSelector("input[type=checkbox]"));
-          var id = checkbox.getAttribute("value");
-           contacts.add(new DataContact().withId(id).withFirstName(name).withLastname(lastname));
-       }
-      return contacts;
-   }
-
+        for (var trPart : trList) {
+            var td = trPart.findElement(By.cssSelector("tr td:nth-child(3)"));
+            //получить имя
+            var name = td.getText();
+            var td2 = trPart.findElement(By.cssSelector("tr td:nth-child(2)"));
+            var lastname = td2.getText();
+            //получить идентификатор строки
+            //var checkbox = trPart.findElement(By.xpath("//a[contains(@href, 'edit.php')]"));
+            //var checkbox = trPart.findElement(By.xpath("//a[contains(@href, 'edit.php')]"));
+            var checkbox = trPart.findElement(By.cssSelector("input[type=checkbox]"));
+            var id = checkbox.getAttribute("value");
+            contacts.add(new DataContact().withId(id).withFirstName(name).withLastname(lastname));
+        }
+        return contacts;
+    }
 
 
     //Лекция 5.1. Пути к файлам и директориям
-   protected  void  attach(By locator, String file) {
-       manager.driver.findElement(locator).sendKeys(Paths.get(file).toAbsolutePath().toString());
-   }
- //Лекция 5.1. Пути к файлам и директориям
+    protected void attach(By locator, String file) {
+        manager.driver.findElement(locator).sendKeys(Paths.get(file).toAbsolutePath().toString());
+    }
+
+    //Лекция 5.1. Пути к файлам и директориям
     private void fillContactFormwithFile(DataContact contact) {
         manager.driver.findElement(By.name("firstname")).click();
         manager.driver.findElement(By.name("firstname")).sendKeys(contact.firstname());
@@ -179,18 +196,6 @@ public class ContactHelper {
         manager.driver.findElement(By.name("lastname")).sendKeys(contact.lastname());
         attach(By.name("photo"), contact.photo());
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public void GoToHomePage() {
@@ -210,11 +215,6 @@ public class ContactHelper {
     public void openAddressbookPage() {
         manager.driver.get("http://localhost/addressbook/");
     }
-
-
-
-
-
 
 
 }

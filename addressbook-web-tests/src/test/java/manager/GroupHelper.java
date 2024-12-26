@@ -15,13 +15,13 @@ public class GroupHelper {
 
     public void openGroupPage() {
         manager.driver.findElement(By.linkText("groups")).click();
-        if(!manager.isSelectPresent(By.name("new"))) {
+        if (!manager.isSelectPresent(By.name("new"))) {
             manager.driver.findElement(By.linkText("groups")).click();
         }
     }
 
     public boolean isGroupPresent() {
-        if(!manager.isSelectPresent(By.name("selected[]"))) {
+        if (!manager.isSelectPresent(By.name("selected[]"))) {
             manager.driver.findElement(By.name("new")).click();
             manager.driver.findElement(By.name("group_name")).click();
             manager.driver.findElement(By.name("group_name")).sendKeys("anna1");
@@ -48,18 +48,18 @@ public class GroupHelper {
         manager.driver.findElement(By.linkText("groups")).click();
     }
 
- //  public void deleteGroupPage(GroupData groupData) {
-     //   openGroupPage();
-     //   selectGroup(groupData);
-      //  manager.driver.findElement(By.name("selected[]")).click();
-      //  manager.driver.findElement(By.cssSelector(".group:nth-child(8) > input")).click();
-      //  manager.driver.findElement(By.name("delete")).click();
-      //  returnToGroupsPage();
-  //  }
+    //  public void deleteGroupPage(GroupData groupData) {
+    //   openGroupPage();
+    //   selectGroup(groupData);
+    //  manager.driver.findElement(By.name("selected[]")).click();
+    //  manager.driver.findElement(By.cssSelector(".group:nth-child(8) > input")).click();
+    //  manager.driver.findElement(By.name("delete")).click();
+    //  returnToGroupsPage();
+    //  }
 
     public void deleteGroupPage(GroupData groupData) {
         openGroupPage();
-      selectGroup(groupData);
+        selectGroup(groupData);
         manager.driver.findElement(By.name("selected[]")).click();
         //manager.driver.findElement(By.cssSelector(".group:nth-child(8) > input")).click();
         manager.driver.findElement(By.xpath("//*[@id=\"content\"]/form/span[1]/input")).click();
@@ -68,13 +68,10 @@ public class GroupHelper {
     }
 
 
-
-
     public int getCount() {
         openGroupPage();
-         return  manager.driver.findElements(By.name("selected[]")).size();
+        return manager.driver.findElements(By.name("selected[]")).size();
     }
-
 
 
     public void modifyGroup(GroupData groupData, GroupData modifiedGroup) {
@@ -112,6 +109,7 @@ public class GroupHelper {
         //manager.driver.findElement(By.name("selected[]")).click();
         manager.driver.findElement(By.cssSelector(String.format("input[value='%s']", groupData.id()))).click();
     }
+
     public List<GroupData> getList() {
         var groups = new ArrayList<GroupData>();
         var spans = manager.driver.findElements(By.cssSelector("span.group"));

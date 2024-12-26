@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tests.ContractDelete" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-26T09:38:14" hostname="DESKTOP-KB78DC2" time="3.139">
+  <properties/>
+  <testcase name="DeleteContractWithComparasion()" classname="tests.ContractDelete" time="3.139"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
