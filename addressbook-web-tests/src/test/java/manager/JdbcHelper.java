@@ -11,15 +11,15 @@ import java.util.List;
 public class JdbcHelper extends GroupHelper {
 
     public JdbcHelper(ApplicationManager manager) {
-     super(manager);
+        super(manager);
     }
-   // Лекция 6 - получение доступа к бд
+
+    // Лекция 6 - получение доступа к бд
     public List<GroupData> getGroupList() {
         var groups = new ArrayList<GroupData>();
         try (var conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
              var statement = conn.createStatement();
-             var result = statement.executeQuery("SELECT group_id, group_name, group_header, group_footer FROM group_list"))
-        {
+             var result = statement.executeQuery("SELECT group_id, group_name, group_header, group_footer FROM group_list")) {
             while (result.next()) {
                 groups.add(new GroupData()
                         .withId(result.getString("group_id"))

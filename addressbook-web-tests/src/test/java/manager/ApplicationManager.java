@@ -13,24 +13,23 @@ import java.util.Properties;
 
 public class ApplicationManager {
     public static WebDriver driver;
-    private  LoginHelper session;
+    private LoginHelper session;
     public GroupHelper groupshelper;
     public ContactHelper allcontacts;
     private Properties properties;
     //Добавлено в лекции 6.1
     private JdbcHelper jdbc;
+    private JDBCHelperContact jdbccontact;
 
 
     public void init(String browser, Properties properties) {
-       this.properties = properties;
+        this.properties = properties;
         if (driver == null) {
-            if("edge".equals(browser)){
+            if ("edge".equals(browser)) {
                 driver = new EdgeDriver();
-            }
-            else if ("firefox".equals(browser)){
-                driver= new FirefoxDriver();
-            }
-            else {
+            } else if ("firefox".equals(browser)) {
+                driver = new FirefoxDriver();
+            } else {
                 throw new IllegalArgumentException(String.format("unknown browser %s", browser));
             }
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
@@ -58,6 +57,14 @@ public class ApplicationManager {
     }
 
 
+    public JDBCHelperContact jdbccontact() {
+        if (jdbccontact == null) {
+            jdbccontact = new JDBCHelperContact(this);
+        }
+        return jdbccontact;
+    }
+
+
     public GroupHelper groupshelper() {
         if (groupshelper == null) {
             groupshelper = new GroupHelper(this);
@@ -66,29 +73,28 @@ public class ApplicationManager {
     }
 
     public ContactHelper allcontacts() {
-        if(allcontacts == null) {
+        if (allcontacts == null) {
             allcontacts = new ContactHelper(this);
-        } return allcontacts;
+        }
+        return allcontacts;
     }
 
     protected boolean isSelectPresent(By locator) {
         try {
             driver.findElement(locator);
-           return true;
-       }
-        catch (NoSuchElementException exception) {
-        return false;
+            return true;
+        } catch (NoSuchElementException exception) {
+            return false;
         }
     }
 
     public boolean isContactPresent(By locator) {
-       try {
-           driver.findElement(locator);
-           return true;
-       }
-        catch (NoSuchElementException exception) {
-           return false;
-       }
+        try {
+            driver.findElement(locator);
+            return true;
+        } catch (NoSuchElementException exception) {
+            return false;
+        }
     }
 
 }

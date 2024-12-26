@@ -146,6 +146,28 @@ public class ContractCreate extends TestBase {
     }
 
 
+    @ParameterizedTest
+    @MethodSource("singleRandomContact")
+    public void ContractCreateWithJDBC(DataContact dataContact) {
+        //  app.allcontacts().openContactPage();
+        var oldContacts = app.jdbccontact().getContactList();
+        app.allcontacts().openContactPageForNewContact();
+        app.allcontacts().createContactshort(dataContact);
+        var newContacts = app.jdbccontact().getContactList();
+        Comparator<DataContact> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+
+        newContacts.sort(compareById);
+        var expectedList = new ArrayList<>(oldContacts);
+        expectedList.add(dataContact.withId(newContacts.get(newContacts.size() - 1).id()));
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newContacts, expectedList);
+
+    }
+
+
+
 }
 
 
