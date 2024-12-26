@@ -74,14 +74,15 @@ public class GroupModificationTests extends TestBase {
     // Эксперименты
     @ParameterizedTest
     @MethodSource("singleRandomGroup")
-    void CanModifyGroupWithLDBC1(GroupData groupData) {
+    void CanModifyGroupWithLDBC1() {
         if (app.groupshelper().getCount() == 0) {
             app.groupshelper().canCreateGroup(new GroupData("", "group name", "group header", "group footer"));
         }
         var oldGroups = app.jdbc().getGroupList();
         var rnd = new Random();
         var index = rnd.nextInt(oldGroups.size());
-        var testData = new GroupData().withName("modified name number1");
+        var n = rnd.nextInt(1000);
+        var testData = new GroupData().withName(String.format("new name %s", n));
         //app.groupshelper().modifyGroup(new GroupData().withName("modified name"));
         app.groupshelper().modifyGroup(oldGroups.get(index), testData);
         var newGroups = app.jdbc().getGroupList();
