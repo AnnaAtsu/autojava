@@ -123,6 +123,8 @@ public class ContractCreate extends TestBase {
     }
 
 
+
+
     @ParameterizedTest
     @MethodSource("singleRandomContact")
     public void ContractCreateWithComparasion(DataContact dataContact) {
