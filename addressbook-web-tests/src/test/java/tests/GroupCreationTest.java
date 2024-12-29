@@ -148,6 +148,22 @@ public class GroupCreationTest extends TestBase {
         Assertions.assertEquals(newGroups, expectedList);
 
     }
+    @ParameterizedTest
+    @MethodSource("singleRandomGroup")
+    public void CreateGroupWithHibernate(GroupData groupData) {
+        var oldGroups = app.hbm().getGroupList();
+        app.groupshelper().canCreateGroup(groupData);
+        var newGroups = app.hbm().getGroupList();
+        Comparator<GroupData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newGroups.sort(compareById);
+        var maxId = newGroups.get(newGroups.size() - 1).id();
+        var expectedList = new ArrayList<>(oldGroups);
+        expectedList.add(groupData.withId(maxId));
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newGroups, expectedList);
 
+    }
 
 }

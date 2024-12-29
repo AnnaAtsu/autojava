@@ -1,8 +1,10 @@
 package manager;
 
 import model.DataContact;
+import model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -198,12 +200,13 @@ public class ContactHelper {
     }
 
 
+    //Задание №15: Реализовать тесты для добавления контакта в группу и удаления контакта из группы
     public void GoToHomePage() {
         manager.driver.findElement(By.linkText("home")).click();
     }
 
     public void addElementToGroup() {
-        manager.driver.findElement(By.id("3")).click();
+        manager.driver.findElement(By.id("1")).click();
         manager.driver.findElement(By.name("to_group")).click();
         {
             WebElement dropdown = manager.driver.findElement(By.name("to_group"));
@@ -214,6 +217,32 @@ public class ContactHelper {
 
     public void openAddressbookPage() {
         manager.driver.get("http://localhost/addressbook/");
+    }
+
+
+    public void RemoveContactFromGroup() {
+        manager.driver.findElement(By.name("remove")).click();
+    }
+
+    public void PickGroupForMethod() {
+        manager.driver.findElement(By.name("group")).click();
+        {
+            WebElement dropdown = manager.driver.findElement(By.name("group"));
+            dropdown.findElement(By.xpath("//option[. = 'SASHA']")).click();
+        }
+        manager.driver.findElement(By.id("175")).click();
+    }
+
+  public void create(DataContact contact, GroupData group) {
+      openContactPageForNewContact();
+       createContactshort(contact);
+       getSelectGroup(group);
+        submitContactModification();
+        returnToMainPage();
+  }
+
+    private static void getSelectGroup(GroupData groupData) {
+        new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(groupData.id());
     }
 
 

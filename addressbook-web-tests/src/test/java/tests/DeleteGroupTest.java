@@ -59,22 +59,41 @@ public class DeleteGroupTest extends TestBase {
 
 
     // Тест для jdbc Лекция 6
+   // @ParameterizedTest
+  //  @MethodSource("singleRandomGroup")
+  //  public void deleteGroupwithJDBC(GroupData groupData) {
+    //    app.groupshelper().openGroupPage();
+     //   app.groupshelper().isGroupPresent();
+     //   var oldGroups = app.jdbc().getGroupList();
+     //   var rnd = new Random();
+      //  var index = rnd.nextInt(oldGroups.size());
+      //  app.groupshelper().deleteGroupPage(oldGroups.get(index));
+      //  var newGroups = app.jdbc().getGroupList();
+      //  var expectedList = new ArrayList<>(oldGroups);
+      //  expectedList.remove(index);
+     //   Assertions.assertEquals(newGroups, expectedList);
+        // изменила то, что выше, с Assertions.assertEquals(newGroups, expectedList);
+     //   ApplicationManager.driver.findElement(By.linkText("Logout")).click();
+  //  }
+
+
     @ParameterizedTest
     @MethodSource("singleRandomGroup")
-    public void deleteGroupwithJDBC(GroupData groupData) {
+    public void deleteGroupwithHibernate() {
         app.groupshelper().openGroupPage();
-        app.groupshelper().isGroupPresent();
-        var oldGroups = app.jdbc().getGroupList();
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().CreateGroup(new GroupData("", "group_anem", "group_header", "group_footer"));
+        }
+       // app.groupshelper().isGroupPresent();
+        var oldGroups = app.hbm().getGroupList();
         var rnd = new Random();
         var index = rnd.nextInt(oldGroups.size());
         app.groupshelper().deleteGroupPage(oldGroups.get(index));
-        var newGroups = app.jdbc().getGroupList();
+        var newGroups = app.hbm().getGroupList();
         var expectedList = new ArrayList<>(oldGroups);
         expectedList.remove(index);
         Assertions.assertEquals(newGroups, expectedList);
-        // изменила то, что выше, с Assertions.assertEquals(newGroups, expectedList);
         ApplicationManager.driver.findElement(By.linkText("Logout")).click();
     }
-
 
 }

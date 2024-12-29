@@ -20,6 +20,8 @@ public class ApplicationManager {
     //Добавлено в лекции 6.1
     private JdbcHelper jdbc;
     private JDBCHelperContact jdbccontact;
+    private  HibernateHelper hbm;
+    private HibernateHelperContact hbmcontact;
 
 
     public void init(String browser, Properties properties) {
@@ -48,6 +50,22 @@ public class ApplicationManager {
         return session;
     }
 
+
+
+    public HibernateHelper hbm() {
+        if (hbm == null) {
+            hbm = new HibernateHelper(this);
+        }
+        return hbm;
+    }
+
+
+    public HibernateHelperContact hbmcontact() {
+        if (hbmcontact == null) {
+            hbmcontact = new HibernateHelperContact(this);
+        }
+        return hbmcontact;
+    }
 
     public JdbcHelper jdbc() {
         if (jdbc == null) {

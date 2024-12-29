@@ -97,4 +97,27 @@ public class GroupModificationTests extends TestBase {
     }
 
 
+    @ParameterizedTest
+    @MethodSource("singleRandomGroup")
+    void CanModifyGroupWithHibernate() {
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().CreateGroup(new GroupData("", "group name", "group header", "group footer"));
+        }
+        var oldGroups = app.hbm().getGroupList();
+        var rnd = new Random();
+        var index = rnd.nextInt(oldGroups.size());
+        var n = rnd.nextInt(1000);
+        var testData = new GroupData().withName(String.format("new name %s", n));
+        app.groupshelper().modifyGroup(oldGroups.get(index), testData);
+        var newGroups = app.hbm().getGroupList();
+        var expectedList = new ArrayList<>(oldGroups);
+        expectedList.set(index, testData.withId(oldGroups.get(index).id()));
+        Comparator<GroupData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newGroups.sort(compareById);
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newGroups, expectedList);
+    }
+
 }
