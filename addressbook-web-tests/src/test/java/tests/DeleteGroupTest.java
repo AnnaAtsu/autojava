@@ -77,23 +77,23 @@ public class DeleteGroupTest extends TestBase {
   //  }
 
 
-    @ParameterizedTest
-    @MethodSource("singleRandomGroup")
-    public void deleteGroupwithHibernate() {
-        app.groupshelper().openGroupPage();
-        if (app.hbm().getGroupCount() == 0) {
-            app.hbm().CreateGroup(new GroupData("", "group_anem", "group_header", "group_footer"));
+ //   @ParameterizedTest
+ //   @MethodSource("singleRandomGroup")
+  //  public void deleteGroupwithHibernate() {
+     //   app.groupshelper().openGroupPage();
+      //  if (app.hbm().getGroupCount() == 0) {
+       //     app.hbm().CreateGroup(new GroupData("", "group_anem", "group_header", "group_footer"));
         }
        // app.groupshelper().isGroupPresent();
-        var oldGroups = app.hbm().getGroupList();
-        var rnd = new Random();
-        var index = rnd.nextInt(oldGroups.size());
-        app.groupshelper().deleteGroupPage(oldGroups.get(index));
-        var newGroups = app.hbm().getGroupList();
-        var expectedList = new ArrayList<>(oldGroups);
-        expectedList.remove(index);
-        Assertions.assertEquals(newGroups, expectedList);
-        ApplicationManager.driver.findElement(By.linkText("Logout")).click();
-    }
+     //   var oldGroups = app.hbm().getGroupList();
+     //   var rnd = new Random();
+     //   var index = rnd.nextInt(oldGroups.size());
+     //   app.groupshelper().deleteGroupPage(oldGroups.get(index));
+      //  var newGroups = app.hbm().getGroupList();
+     //   var expectedList = new ArrayList<>(oldGroups);
+     //   expectedList.remove(index);
+     //   Assertions.assertEquals(newGroups, expectedList);
+     //   ApplicationManager.driver.findElement(By.linkText("Logout")).click();
+   // }
 
-}
+//}

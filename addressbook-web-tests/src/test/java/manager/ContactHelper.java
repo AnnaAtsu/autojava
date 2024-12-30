@@ -205,8 +205,9 @@ public class ContactHelper {
         manager.driver.findElement(By.linkText("home")).click();
     }
 
-    public void addElementToGroup() {
-        manager.driver.findElement(By.id("1")).click();
+    public void addElementToGroup( DataContact datacontact) {
+      //  manager.driver.findElement(By.id("1")).click();
+       // manager.driver.findElement(By.xpath(String.format("//input[@id='%s']",datacontact.id()))).click();
         manager.driver.findElement(By.name("to_group")).click();
         {
             WebElement dropdown = manager.driver.findElement(By.name("to_group"));
@@ -241,9 +242,21 @@ public class ContactHelper {
         returnToMainPage();
   }
 
-    private static void getSelectGroup(GroupData groupData) {
+    private void getSelectGroup(GroupData groupData) {
         new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(groupData.id());
     }
 
 
+    public String getPhones(DataContact contact) {
+        return manager.driver.findElement(By.xpath(String.format("//input[@id='%s']/../../td[6]", contact.id()))).getText();
+
+    }
+
+    public String getEmails(DataContact contact) {
+        return manager.driver.findElement(By.xpath(String.format("//input[@id='%s']/../../td[5]", contact.id()))).getText();
+    }
+
+    public String getAddresses(DataContact contact) {
+        return manager.driver.findElement(By.xpath(String.format("//input[@id='%s']/../../td[4]", contact.id()))).getText();
+    }
 }

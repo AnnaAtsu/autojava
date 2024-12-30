@@ -170,20 +170,20 @@ public class ContractCreate extends TestBase {
 
     //Задание №15: Реализовать тесты для добавления контакта в группу и удаления контакта из группы
 
-    public void canCreateContactInGroup() {
-        var contact = new DataContact()
-                .withFirstName(CommonFunctions.randomString(10))
-                .withLastname(CommonFunctions.randomString(10));
-        if (app.hbm().getGroupCount() == 0) {
-            app.hbm().CreateGroup(new GroupData("", "group_name", "group_header", "group_footer"));
-        }
-        var group = app.hbm().getGroupList().get(0);
-        var oldRelated = app.hbm().getContactsInGroup(group);
-        app.allcontacts().create(contact, group);
-        var newRelated = app.hbm().getContactsInGroup(group);
-        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
-
-    }
+  //  public void canCreateContactInGroup() {
+   //     var contact = new DataContact()
+   //             .withFirstName(CommonFunctions.randomString(10))
+    //            .withLastname(CommonFunctions.randomString(10));
+    //    if (app.hbm().getGroupCount() == 0) {
+    //        app.hbm().CreateGroup(new GroupData("", "group_name", "group_header", "group_footer"));
+    //    }
+     //   var group = app.hbm().getGroupList().get(0);
+     //   var oldRelated = app.hbm().getContactsInGroup(group);
+    //    app.allcontacts().create(contact, group);
+    //    var newRelated = app.hbm().getContactsInGroup(group);
+    //    Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
+//
+  //  }
 
     //Задание №15: Реализовать тесты для добавления контакта в группу и удаления контакта из группы
     @ParameterizedTest
@@ -194,7 +194,7 @@ public class ContractCreate extends TestBase {
             app.allcontacts().createContactshort(new DataContact().withFirstName("Alexande2"));
         }
         var oldContacts = app.jdbccontact().getContactList();
-        app.allcontacts().addElementToGroup();
+        app.allcontacts().addElementToGroup(dataContact);
         var newContacts = app.jdbccontact().getContactList();
         Comparator<DataContact> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));

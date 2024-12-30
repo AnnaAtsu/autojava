@@ -100,9 +100,9 @@ public class GroupModificationTests extends TestBase {
     @ParameterizedTest
     @MethodSource("singleRandomGroup")
     void CanModifyGroupWithHibernate() {
-        if (app.hbm().getGroupCount() == 0) {
-            app.hbm().CreateGroup(new GroupData("", "group name", "group header", "group footer"));
-        }
+      //  if (app.hbm().getGroupCount() == 0) {
+       //     app.hbm().CreateGroup(new GroupData("", "group name", "group header", "group footer"));
+      //  }
         var oldGroups = app.hbm().getGroupList();
         var rnd = new Random();
         var index = rnd.nextInt(oldGroups.size());

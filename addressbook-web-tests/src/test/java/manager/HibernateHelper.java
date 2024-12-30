@@ -55,11 +55,11 @@ public class HibernateHelper extends GroupHelper {
         }));
     }
 
-    public long getGroupCount() {
-        return sessionFactory.fromSession(session -> {
-            return session.createQuery("select count (*) from GroupRecord", Long.class).getSingleResult();
-        });
-    }
+  //  public long getGroupCount() {
+  //      return sessionFactory.fromSession(session -> {
+  //          return session.createQuery("select count (*) from GroupRecord", Long.class).getSingleResult();
+  //      });
+ //   }
 
     public void CreateGroup(GroupData groupData) {
         sessionFactory.inSession(session -> {
@@ -69,9 +69,9 @@ public class HibernateHelper extends GroupHelper {
         });
     }
 
-    public List<DataContact> getContactsInGroup(GroupData group) {
-         return sessionFactory.fromSession(session -> {
-            return session.createQuery();
-        })
-    }
+   // public List<DataContact> getContactsInGroup(GroupData group) {
+    //     return sessionFactory.fromSession(session -> {
+    //        return session.createQuery();
+    //    })
+   // }
 }

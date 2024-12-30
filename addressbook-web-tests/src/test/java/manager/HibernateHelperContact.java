@@ -11,7 +11,7 @@ import org.hibernate.cfg.Configuration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HibernateHelperContact extends ContactHelper{
+public class HibernateHelperContact extends ContactHelper {
 
     private SessionFactory sessionFactory;
 
@@ -28,7 +28,7 @@ public class HibernateHelperContact extends ContactHelper{
                 .setProperty(AvailableSettings.PASS, "")
                 // Create a new SessionFactory
                 .buildSessionFactory();
-}
+    }
 
     static List<DataContact> convertList(List<ContactRecord> records) {
         List<DataContact> result = new ArrayList<>();
@@ -43,15 +43,23 @@ public class HibernateHelperContact extends ContactHelper{
         return new DataContact().withId("" + record.id)
                 .withFirstName(record.firstname)
                 .withMiddleName(record.middlename)
-                .withLastname(record.lastname);
+                .withLastname(record.lastname)
+                .withHome(record.home)
+                .withMobile(record.mobile)
+                .withWork(record.work)
+                .withSecondary(record.phone2)
+                .withEmail(record.email)
+                .withEmail2(record.email2)
+                .withEmail3(record.email3)
+                .withAddress(record.address)
+                .withAddress2(record.address2);
 
     }
 
 
-
-  //  private static DataContact convert(ContactRecord record) {
+    //  private static DataContact convert(ContactRecord record) {
     //    return new DataContact("" + record.id, record.firstname, record.lastname, record.address);
-   // }
+    // }
     private static ContactRecord convert(DataContact data) {
         var id = data.id();
         if ("".equals(id)) {
@@ -72,6 +80,7 @@ public class HibernateHelperContact extends ContactHelper{
             return session.createQuery("select count (*) from ContactRecord", Long.class).getSingleResult();
         });
     }
+
     public void CreateGroup(DataContact dataContact) {
         sessionFactory.inSession(session -> {
             session.getTransaction().begin();
