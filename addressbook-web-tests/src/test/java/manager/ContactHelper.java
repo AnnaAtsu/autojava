@@ -147,7 +147,8 @@ public class ContactHelper {
     }
 
     private void submitContactModification() {
-        manager.driver.findElement(By.xpath("//*[@id=\"content\"]/form[1]/input[1]")).click();
+       // manager.driver.findElement(By.xpath("//*[@id=\"content\"]/form[1]/input[1]")).click();
+        manager.driver.findElement(By.cssSelector("input:nth-child(75)")).click();
     }
 
     private void initContactModification() {
@@ -205,14 +206,11 @@ public class ContactHelper {
         manager.driver.findElement(By.linkText("home")).click();
     }
 
-    public void addElementToGroup( DataContact datacontact) {
-      //  manager.driver.findElement(By.id("1")).click();
-       // manager.driver.findElement(By.xpath(String.format("//input[@id='%s']",datacontact.id()))).click();
-        manager.driver.findElement(By.name("to_group")).click();
-        {
-            WebElement dropdown = manager.driver.findElement(By.name("to_group"));
-            dropdown.findElement(By.xpath("//option[. = 'SASHA']")).click();
-        }
+    public void addElementToGroup(DataContact contact, GroupData group) {
+                // manager.driver.findElement(By.xpath(String.format("//input[@id='%s']",datacontact.id()))).click();
+        manager.driver.findElement(By.cssSelector(String.format("input[value='%s']",contact.id()))).click();
+
+       new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
         manager.driver.findElement(By.name("add")).click();
     }
 
@@ -221,29 +219,24 @@ public class ContactHelper {
     }
 
 
-    public void RemoveContactFromGroup() {
+
+    public void PickGroupForMethod(DataContact contact, GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
+        manager.driver.findElement(By.cssSelector(String.format("input[value='%s']",contact.id()))).click();
+      //  manager.driver.findElement(By.id("175")).contact.id().click();
         manager.driver.findElement(By.name("remove")).click();
     }
 
-    public void PickGroupForMethod() {
-        manager.driver.findElement(By.name("group")).click();
-        {
-            WebElement dropdown = manager.driver.findElement(By.name("group"));
-            dropdown.findElement(By.xpath("//option[. = 'SASHA']")).click();
-        }
-        manager.driver.findElement(By.id("175")).click();
-    }
-
-  public void create(DataContact contact, GroupData group) {
-      openContactPageForNewContact();
-       createContactshort(contact);
-       getSelectGroup(group);
+    public void create(DataContact contact, GroupData group) {
+        openContactPageForNewContact();
+        fillContactForm(contact);
+        SelectGroup(group);
         submitContactModification();
         returnToMainPage();
-  }
+    }
 
-    private void getSelectGroup(GroupData groupData) {
-        new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(groupData.id());
+    private void SelectGroup(GroupData group) {
+        new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
     }
 
 

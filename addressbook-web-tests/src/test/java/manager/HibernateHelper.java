@@ -1,5 +1,6 @@
 package manager;
 
+import manager.hbm.ContactRecord;
 import manager.hbm.GroupRecord;
 import model.DataContact;
 import model.GroupData;
@@ -10,6 +11,8 @@ import org.hibernate.cfg.Configuration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static manager.HibernateHelperContact.convertContactList;
+
 public class HibernateHelper extends GroupHelper {
 
     private SessionFactory sessionFactory;
@@ -17,10 +20,10 @@ public class HibernateHelper extends GroupHelper {
     public HibernateHelper(ApplicationManager manager) {
         super(manager);
         sessionFactory = new Configuration()
-                //.addAnnotatedClass(Book.class)
+                .addAnnotatedClass(ContactRecord.class)
                 .addAnnotatedClass(GroupRecord.class)
                 // PostgreSQL
-                .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook")
+                .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook?zeroDateTimeBehavior=convertToNull")
                 // Credentials
                 .setProperty(AvailableSettings.USER, "root")
                 .setProperty(AvailableSettings.PASS, "")
@@ -55,11 +58,11 @@ public class HibernateHelper extends GroupHelper {
         }));
     }
 
-  //  public long getGroupCount() {
-  //      return sessionFactory.fromSession(session -> {
-  //          return session.createQuery("select count (*) from GroupRecord", Long.class).getSingleResult();
-  //      });
- //   }
+   public long getGroupCount() {
+      return sessionFactory.fromSession(session -> {
+          return session.createQuery("select count (*) from GroupRecord", Long.class).getSingleResult();
+      });
+  }
 
     public void CreateGroup(GroupData groupData) {
         sessionFactory.inSession(session -> {
@@ -69,9 +72,11 @@ public class HibernateHelper extends GroupHelper {
         });
     }
 
-   // public List<DataContact> getContactsInGroup(GroupData group) {
-    //     return sessionFactory.fromSession(session -> {
-    //        return session.createQuery();
-    //    })
-   // }
+
+
+    public List<DataContact> getContactsInGroup(GroupData group) {
+       return sessionFactory.fromSession(session -> {
+          return convertContactList(session.get(GroupRecord.class, group.id()).contacts);
+      });
+    }
 }

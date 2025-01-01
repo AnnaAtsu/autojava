@@ -24,7 +24,8 @@ public class GroupRecord {
     public String footer;
 
     public Date deprecated = new Date();
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "group_id"),
     inverseJoinColumns =  @JoinColumn(name ="id"))
     public List<ContactRecord> contacts;

@@ -11,6 +11,8 @@ import org.hibernate.cfg.Configuration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static manager.HibernateHelper.convertList;
+
 public class HibernateHelperContact extends ContactHelper {
 
     private SessionFactory sessionFactory;
@@ -30,7 +32,7 @@ public class HibernateHelperContact extends ContactHelper {
                 .buildSessionFactory();
     }
 
-    static List<DataContact> convertList(List<ContactRecord> records) {
+    static List<DataContact> convertContactList(List<ContactRecord> records) {
         List<DataContact> result = new ArrayList<>();
         for (var record : records) {
             result.add(convert(record));
@@ -69,7 +71,7 @@ public class HibernateHelperContact extends ContactHelper {
     }
 
     public List<DataContact> getContactList() {
-        return convertList(sessionFactory.fromSession(session -> {
+        return convertContactList(sessionFactory.fromSession(session -> {
             return session.createQuery("from ContactRecord", ContactRecord.class).list();
         }));
     }
