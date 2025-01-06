@@ -11,7 +11,9 @@ public class HttpSessionHelper extends HelperBase{
 
     public HttpSessionHelper(ApplicationManager manager) {
         super(manager);
-       // client = new OkHttpClient().Builder().cookieJar(new JavaNetCookieJar(new CookieManager())).build();
+        client = new OkHttpClient.Builder().cookieJar(new JavaNetCookieJar(new CookieManager())).build();
+        //client = new OkHttpClient();
+
     }
 
     public void login(String username, String password) {
