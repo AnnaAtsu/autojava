@@ -125,8 +125,6 @@ public class ContractCreate extends TestBase {
     }
 
 
-
-
     @ParameterizedTest
     @MethodSource("singleRandomContact")
     public void ContractCreateWithComparasion(DataContact dataContact) {
@@ -189,12 +187,17 @@ public class ContractCreate extends TestBase {
     //Задание №15: Реализовать тесты для добавления контакта в группу и удаления контакта из группы
     @Test
     public void addContactToGroup() {
-        var contact = new DataContact()
-                .withFirstName(CommonFunctions.randomString(10))
-                .withLastname(CommonFunctions.randomString(10));
+
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().CreateGroup(new GroupData("", "group_name", "group_header", "group_footer"));
         }
+        if (app.allcontacts().getCount() == 0) {
+            app.allcontacts().createContactshort(new DataContact().withFirstName("Marianna").withLastname("Smirnova"));
+        }
+        var contact = app.allcontacts().getList().get(0);
+        //  var contact = new DataContact()
+        //        .withFirstName(CommonFunctions.randomString(10))
+        //      .withLastname(CommonFunctions.randomString(10));
         var group = app.hbm().getGroupList().get(0);
         var oldRelated = app.hbm().getContactsInGroup(group);
         app.allcontacts().addElementToGroup(contact, group);
@@ -212,8 +215,11 @@ public class ContractCreate extends TestBase {
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().CreateGroup(new GroupData("", "group_name", "group_header", "group_footer"));
         }
+        if (app.allcontacts().getCount() == 0) {
+            app.allcontacts().createContactshort(new DataContact().withFirstName("Mari").withLastname("Sidorova"));
+        }
         var group = app.hbm().getGroupList().get(0);
-       var oldRelated = app.hbm().getContactsInGroup(group);
+        var oldRelated = app.hbm().getContactsInGroup(group);
         app.allcontacts().PickGroupForMethod(contact, group);
         var newRelated = app.hbm().getContactsInGroup(group);
         Assertions.assertEquals(oldRelated.size(), newRelated.size());
