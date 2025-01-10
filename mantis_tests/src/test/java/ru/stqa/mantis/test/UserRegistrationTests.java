@@ -1,15 +1,21 @@
 package ru.stqa.mantis.test;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import ru.stqa.mantis.common.CommonFunctions;
 
 import java.time.Duration;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import static ru.stqa.mantis.manager.ApplicationManager.driver;
 
 public class UserRegistrationTests extends TestBase{
+
+    developerMailUser username;
 
     @Test
     void canRegisterUser() {
@@ -37,4 +43,67 @@ public class UserRegistrationTests extends TestBase{
         //пользователь может залогиниться
         Assertions.assertTrue(app.session().isLoggedIn());
     }
+
+    public static Stream<String> randomUser() {
+       return Stream.of(CommonFunctions.randomString(6));
+    }
+
+
+
+
+    @ParameterizedTest
+    @MethodSource("randomUser")
+    void canRegisterUserforAPI(String username) {
+
+
+        var email = String.format("%s@localhost", username);
+        var password = "password";
+                app.jamesApi().addUser(email, password);
+
+        app.session().loginNewSignup(username, email);
+
+        app.mail().receive(email, password, Duration.ofSeconds(60));
+
+        var messages = app.mail().receive(email, password, Duration.ofSeconds(60));
+        var text = messages.get(0).content();
+        var pattern = Pattern.compile("http://\\S*");
+        var matcher = pattern.matcher(text);
+        Assertions.assertTrue(matcher.find());
+        var url = text.substring(matcher.start(), matcher.end());
+        app.driver().get(url);
+
+        app.session().confirmRegistration(username,password);
+
+        Assertions.assertTrue(app.session().isLoggedIn());
+    }
+
+
+@Test
+void canRegisterUserDeveloperMail() {
+    var password = "password";
+    username= app.developerMail().addUser();
+    var email = String.format("%s@developermail.com", username.name());
+    app.session().loginNewSignup(username, email);
+
+    app.mail().receive(email, password, Duration.ofSeconds(60));
+
+    var messages = app.mail().receive(email, password, Duration.ofSeconds(60));
+    var text = messages.get(0).content();
+    var pattern = Pattern.compile("http://\\S*");
+    var matcher = pattern.matcher(text);
+    Assertions.assertTrue(matcher.find());
+    var url = text.substring(matcher.start(), matcher.end());
+    app.driver().get(url);
+
+    app.session().confirmRegistration(username,password);
+
+    Assertions.assertTrue(app.session().isLoggedIn());
+}
+
+@AfterEach
+    void deleteMailUser() {
+    app.developerMail().deleteUser(username);
+}
+
+
 }
