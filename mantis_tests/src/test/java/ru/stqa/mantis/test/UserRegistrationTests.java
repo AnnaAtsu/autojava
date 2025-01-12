@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.stqa.mantis.common.CommonFunctions;
+import ru.stqa.mantis.model.DeveloperMailUser;
 
 import java.time.Duration;
 import java.util.regex.Pattern;
@@ -15,7 +16,7 @@ import static ru.stqa.mantis.manager.ApplicationManager.driver;
 
 public class UserRegistrationTests extends TestBase{
 
-    developerMailUser username;
+    DeveloperMailUser user;
 
     @Test
     void canRegisterUser() {
@@ -81,28 +82,25 @@ public class UserRegistrationTests extends TestBase{
 @Test
 void canRegisterUserDeveloperMail() {
     var password = "password";
-    username= app.developerMail().addUser();
-    var email = String.format("%s@developermail.com", username.name());
-    app.session().loginNewSignup(username, email);
+    user = app.developerMail().addUser();
+    var email = String.format("%s@developermail.com", user.name());
+   app.session().loginNewSignup(user.name(), email);
+  // app.mail().receive(email, password, Duration.ofSeconds(60));
+   var message = app.developerMail().receive(user, Duration.ofSeconds(10));
+   var pattern = Pattern.compile("http://\\S*");
+   var matcher = pattern.matcher(message);
+ Assertions.assertTrue(matcher.find());
+ var url = message.substring(matcher.start(), matcher.end());
+ app.driver().get(url);
 
-    app.mail().receive(email, password, Duration.ofSeconds(60));
+ app.session().confirmRegistration(user.name(), password);
 
-    var messages = app.mail().receive(email, password, Duration.ofSeconds(60));
-    var text = messages.get(0).content();
-    var pattern = Pattern.compile("http://\\S*");
-    var matcher = pattern.matcher(text);
-    Assertions.assertTrue(matcher.find());
-    var url = text.substring(matcher.start(), matcher.end());
-    app.driver().get(url);
-
-    app.session().confirmRegistration(username,password);
-
-    Assertions.assertTrue(app.session().isLoggedIn());
+  Assertions.assertTrue(app.session().isLoggedIn());
 }
 
 @AfterEach
     void deleteMailUser() {
-    app.developerMail().deleteUser(username);
+    app.developerMail().deleteUser(user);
 }
 
 

@@ -22,7 +22,8 @@ public class SessionHelper extends HelperBase{
         click(By.cssSelector("input[type='submit']"));
     }
 
-    public void confirmRegistration(String username, String password) {
+
+     public void confirmRegistration(String username, String password) {
        type(By.name("password"), password);
         type(By.name("password_confirm"), password);
         click(By.cssSelector("button[type='submit']"));
