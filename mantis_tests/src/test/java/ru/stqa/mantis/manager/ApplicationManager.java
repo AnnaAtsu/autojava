@@ -4,12 +4,14 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import ru.stqa.mantis.common.CommonFunctions;
 
 import java.util.Properties;
 
 public class ApplicationManager {
 
     public static WebDriver driver;
+    public ru.stqa.mantis.common.CommonFunctions CommonFunctions;
     private String browser;
     private Properties properties;
     private SessionHelper sessionHelper;
