@@ -1,13 +1,18 @@
 package manager;
 
-import model.DataContact;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 
@@ -20,16 +25,24 @@ public class ApplicationManager {
     //Добавлено в лекции 6.1
     private JdbcHelper jdbc;
     private JDBCHelperContact jdbccontact;
-    private  HibernateHelper hbm;
+    private HibernateHelper hbm;
     private HibernateHelperContact hbmcontact;
 
 
-    public void init(String browser, Properties properties) {
+    public void init(String browser, Properties properties) throws MalformedURLException {
         this.properties = properties;
         if (driver == null) {
+            var seleniumServer = properties.getProperty("seleniumServer");
             if ("edge".equals(browser)) {
-                driver = new EdgeDriver();
+                if (seleniumServer != null) {
+                    driver = new RemoteWebDriver(new URL(seleniumServer), new EdgeOptions());
+                } else {
+                    driver = new EdgeDriver();
+                }
             } else if ("firefox".equals(browser)) {
+                if(seleniumServer != null) {
+                    driver = new RemoteWebDriver(new URL(seleniumServer), new FirefoxOptions());
+                }
                 driver = new FirefoxDriver();
             } else {
                 throw new IllegalArgumentException(String.format("unknown browser %s", browser));
@@ -49,7 +62,6 @@ public class ApplicationManager {
         }
         return session;
     }
-
 
 
     public HibernateHelper hbm() {

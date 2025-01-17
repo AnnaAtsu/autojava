@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("org.hidetake.swagger.generator") version "2.19.2"
+    id("org.hidetake.swagger.generator") version "2.19.1"
 }
 
 group = "org.example"
@@ -28,6 +28,7 @@ dependencies {
     testImplementation("javax.annotation:javax.annotation-api:1.3.2")
 
 }
+
 
 tasks.test {
     useJUnitPlatform()

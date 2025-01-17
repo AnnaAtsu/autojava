@@ -58,7 +58,10 @@ public class RestApiHelper extends HelperBase{
             UserAddResponse result = apiInstance.userAdd(user);
             System.out.println(result);
         } catch (ApiException e) {
+            System.out.println(apiInstance.getApiClient().getBasePath());
             throw new RuntimeException(e);
+
+
         }
     }
 }
