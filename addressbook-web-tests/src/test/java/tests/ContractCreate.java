@@ -202,7 +202,7 @@ public class ContractCreate extends TestBase {
         var oldRelated = app.hbm().getContactsInGroup(group);
         app.allcontacts().addElementToGroup(contact, group);
         var newRelated = app.hbm().getContactsInGroup(group);
-        Assertions.assertEquals(oldRelated.size(), newRelated.size());
+        Assertions.assertEquals(oldRelated, newRelated);
     }
 
 //Задание №15: Реализовать тесты для добавления контакта в группу и удаления контакта из группы
@@ -222,7 +222,7 @@ public class ContractCreate extends TestBase {
         var oldRelated = app.hbm().getContactsInGroup(group);
         app.allcontacts().PickGroupForMethod(contact, group);
         var newRelated = app.hbm().getContactsInGroup(group);
-        Assertions.assertEquals(oldRelated.size(), newRelated.size());
+        Assertions.assertEquals(oldRelated, newRelated);
 
     }
 
