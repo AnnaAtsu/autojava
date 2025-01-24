@@ -17,6 +17,10 @@ public class LoginTest  extends TestBase{
     }
 
 
-
+    @Test
+    void canLogout() {
+       // app.session().logout();
+    }
 
 }
+

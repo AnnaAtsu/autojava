@@ -3,6 +3,8 @@ package manager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.concurrent.TimeUnit;
+
 import static manager.ApplicationManager.driver;
 
 public class SessionHelper extends HelperBase{
@@ -76,7 +78,10 @@ public class SessionHelper extends HelperBase{
     public void generateNumber() {
         WebElement putOnDataButton = driver.findElement(By.xpath("//*[contains(text(), \"Внести данные\")]"));
         putOnDataButton.click();
-        WebElement generateDataButton = driver.findElements(By.tagName("button")).get(92);
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+       // WebElement generateDataButton = driver.findElement(By.xpath("//span[@class='btn__content' and text='Сгенерировать']"));
+        //WebElement generateDataButton = driver.findElement(By.xpath("//div[2]/div[2]/div/button[2]/span/span[2]"));
+        WebElement generateDataButton = driver.findElement(By.xpath("//*[@class='btn__content' and text='Сгенерировать']"));
         generateDataButton.click();
 
     }
