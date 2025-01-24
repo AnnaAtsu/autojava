@@ -22,6 +22,7 @@ public class TestBase {
 
     @BeforeEach
     public void setUp() throws IOException {
+
         if (app == null) {
             //Лекция 5 добавляем 2 строки ниже для конфигурационного файла/ Меняем последнюю строку. Изначально pp.init(System.getProperty("browser", "edge"));
             var properties = new Properties();

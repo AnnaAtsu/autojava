@@ -31,27 +31,31 @@ public class ApplicationManager {
 
     public void init(String browser, Properties properties) throws MalformedURLException {
         this.properties = properties;
+
         if (driver == null) {
             var seleniumServer = properties.getProperty("seleniumServer");
+
             if ("edge".equals(browser)) {
                 if (seleniumServer != null) {
-                    driver = new RemoteWebDriver(new URL(seleniumServer), new EdgeOptions());
+
+                   driver = new RemoteWebDriver(new URL(seleniumServer), new EdgeOptions());
                 } else {
-                    driver = new EdgeDriver();
+                   driver = new EdgeDriver();
                 }
             } else if ("firefox".equals(browser)) {
-                if(seleniumServer != null) {
-                    driver = new RemoteWebDriver(new URL(seleniumServer), new FirefoxOptions());
+                if (seleniumServer != null) {
+                     driver = new RemoteWebDriver(new URL(seleniumServer), new FirefoxOptions());
+                } else {
+                   driver = new FirefoxDriver();
                 }
-                driver = new FirefoxDriver();
             } else {
                 throw new IllegalArgumentException(String.format("unknown browser %s", browser));
             }
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
-            //driver.get("http://localhost/addressbook/");
+            ////driver.get("http://localhost/addressbook/");
             driver.get(properties.getProperty("web.baseUrl"));
             driver.manage().window().setSize(new Dimension(1904, 1119));
-            //session().login("admin","secret");
+            ////session().login("admin","secret");
             session().login(properties.getProperty("web.username"), properties.getProperty("web.password"));
         }
     }
