@@ -12,5 +12,6 @@ public class ReestrNomerov extends TestBase{
         app.session().goToReesrrNomerovSDIZ();
         app.session().generateNumber();
 
+
     }
 }
