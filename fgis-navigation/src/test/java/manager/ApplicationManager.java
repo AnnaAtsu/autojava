@@ -1,5 +1,6 @@
 package manager;
 
+import org.junit.jupiter.api.AfterEach;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -46,5 +47,11 @@ public class ApplicationManager {
             sessionHelper = new SessionHelper(this);
         }
         return sessionHelper;
+    }
+
+
+    @AfterEach
+    public void tearDown() {
+        driver.quit();
     }
 }
