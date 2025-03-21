@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tests.GroupCreationTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2025-01-18T16:08:45" hostname="DESKTOP-KB78DC2" time="0.017">
+  <properties/>
+  <testcase name="CreateGroupOnlyName()" classname="tests.GroupCreationTest" time="0.017">
+    <failure message="java.lang.IllegalArgumentException: 6" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: 6
+	at tests.TestBase.setUp(TestBase.java:25)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

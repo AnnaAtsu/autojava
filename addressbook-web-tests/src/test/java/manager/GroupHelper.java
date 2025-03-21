@@ -1,5 +1,6 @@
 package manager;
 
+import io.qameta.allure.Step;
 import model.GroupData;
 import org.openqa.selenium.By;
 
@@ -35,6 +36,7 @@ public class GroupHelper {
         return false;
     }
 
+    @Step
     public void canCreateGroup(GroupData groupData) {
         openGroupPage();
         manager.driver.findElement(By.name("new")).click();
@@ -67,7 +69,7 @@ public class GroupHelper {
         returnToGroupsPage();
     }
 
-
+    @Step
     public int getCount() {
         openGroupPage();
         return manager.driver.findElements(By.name("selected[]")).size();
@@ -110,6 +112,7 @@ public class GroupHelper {
         manager.driver.findElement(By.cssSelector(String.format("input[value='%s']", groupData.id()))).click();
     }
 
+    @Step
     public List<GroupData> getList() {
         var groups = new ArrayList<GroupData>();
         var spans = manager.driver.findElements(By.cssSelector("span.group"));
